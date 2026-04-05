@@ -21,9 +21,7 @@
   --font: 'DM Sans', system-ui, sans-serif;
   --mono: 'DM Mono', 'Courier New', monospace;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background: var(--bg);
   color: var(--text);
@@ -34,13 +32,11 @@ body {
   max-width: 900px;
   margin: 0 auto;
 }
-
 header {
   margin-bottom: 40px;
   padding-bottom: 24px;
   border-bottom: 2px solid var(--accent);
 }
-
 h1 {
   font-size: 28px;
   font-weight: 600;
@@ -48,20 +44,11 @@ h1 {
   margin-bottom: 6px;
   letter-spacing: -0.02em;
 }
-
 .subtitle {
   font-size: 14px;
   color: var(--text-muted);
   font-weight: 400;
 }
-
-.last-update {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 8px;
-}
-
 .section-title {
   font-size: 13px;
   font-weight: 600;
@@ -72,11 +59,7 @@ h1 {
   padding-bottom: 6px;
   border-bottom: 1px solid var(--border);
 }
-
-.file-list {
-  list-style: none;
-}
-
+.file-list { list-style: none; }
 .file-item {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -89,36 +72,25 @@ h1 {
   gap: 12px;
   transition: box-shadow 0.15s ease;
 }
-
-.file-item:hover {
-  box-shadow: var(--shadow);
-}
-
-.file-info {
-  flex: 1;
-  min-width: 0;
-}
-
+.file-item:hover { box-shadow: var(--shadow); }
+.file-info { flex: 1; min-width: 0; }
 .file-name {
   font-weight: 500;
   font-size: 14px;
   color: var(--text);
   word-break: break-word;
 }
-
 .file-date {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--text-muted);
   margin-top: 2px;
 }
-
 .file-actions {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
 }
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -135,18 +107,15 @@ h1 {
   transition: all 0.15s ease;
   white-space: nowrap;
 }
-
 .btn:hover {
   color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-light);
 }
-
 .btn.copied {
   color: #1f8a70;
   border-color: #1f8a70;
 }
-
 .tag {
   display: inline-block;
   background: var(--tag-bg);
@@ -158,9 +127,7 @@ h1 {
   margin-left: 8px;
   vertical-align: middle;
 }
-
 .tag.sintesi { background: #dce8d4; color: #3d6b2e; }
-
 .instructions {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -171,7 +138,6 @@ h1 {
   color: var(--text-muted);
   line-height: 1.7;
 }
-
 .instructions code {
   background: var(--tag-bg);
   padding: 2px 6px;
@@ -180,11 +146,7 @@ h1 {
   font-size: 12px;
   color: var(--text);
 }
-
-.instructions strong {
-  color: var(--text);
-}
-
+.instructions strong { color: var(--text); }
 @media (max-width: 600px) {
   body { padding: 20px 14px; }
   .file-item { flex-direction: column; align-items: flex-start; }
@@ -197,199 +159,103 @@ h1 {
 
 <header>
   <h1>Contesto AI — Viceconti</h1>
-  <div class="subtitle">Riepiloghi operativi dei progetti per contesto Claude</div>
-  <div class="last-update">Ultimo aggiornamento: 5 aprile 2026</div>
+  <div class="subtitle">Riepiloghi operativi dei progetti — contesto per Claude, ChatGPT, Gemini</div>
 </header>
 
 <div class="instructions">
-  <strong>Come usare questi file con Claude:</strong> copia il link raw di un file e incollalo in chat, oppure aggiungi l'URL nel prompt di sistema di un progetto Claude con l'istruzione: <code>All'inizio di ogni conversazione, leggi il contesto da [URL]</code>
+  <strong>Come usare con le AI:</strong><br>
+  <strong>Claude / ChatGPT:</strong> copia il link (📋) e incollalo in chat, oppure nel prompt di sistema: <code>Leggi il contesto da [URL]</code><br>
+  <strong>Gemini:</strong> usa il link GitHub (📄) — non legge URL raw
 </div>
 
 <div class="section-title">Sintesi trasversale</div>
-<ul class="file-list">
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">SINTESI ECOSISTEMA VICECONTI <span class="tag sintesi">SINTESI</span></div>
-      <div class="file-date">04/04/2026 — Visione d'insieme e stato operativo</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/SINTESI%20ECOSISTEMA%20VICECONTI%20SINTESI%2004_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'SINTESI%20ECOSISTEMA%20VICECONTI%20SINTESI%2004_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-</ul>
+<ul class="file-list" id="sintesi"></ul>
 
 <div class="section-title">Riepiloghi progetti</div>
-<ul class="file-list">
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">AI HUMAN LAB</div>
-      <div class="file-date">03/04/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/AI%20HUMAN%20LAB%20RIEPILOGO%2003_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'AI%20HUMAN%20LAB%20RIEPILOGO%2003_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">ASSISTENTI INTELLIGENTI</div>
-      <div class="file-date">01/01/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/ASSISTENTI%20INTELLIGENTI%20RIEPILOGO%2001_01_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'ASSISTENTI%20INTELLIGENTI%20RIEPILOGO%2001_01_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">AUDIT INFRASTRUTTURA</div>
-      <div class="file-date">04/04/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/AUDIT%20INFRASTRUTTURA%20RIEPILOGO%2004_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'AUDIT%20INFRASTRUTTURA%20RIEPILOGO%2004_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">DATABASE CENTRALIZZATO</div>
-      <div class="file-date">28/02/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/DATABASE%20CENTRALIZZATO%20RIEPILOGO%2028_02_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'DATABASE%20CENTRALIZZATO%20RIEPILOGO%2028_02_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">MEMORIA E CONTESTO AI</div>
-      <div class="file-date">04/04/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/MEMORIA%20E%20CONTESTO%20AI%20RIEPILOGO%2004_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'MEMORIA%20E%20CONTESTO%20AI%20RIEPILOGO%2004_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">n8n</div>
-      <div class="file-date">04/04/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/n8n%20RIEPILOGO%2004_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'n8n%20RIEPILOGO%2004_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">NAMING VICECONTI</div>
-      <div class="file-date">25/02/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/NAMING%20VICECONTI%2025%2002%202026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'NAMING%20VICECONTI%2025%2002%202026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">NUOVA STRATEGIA SETTEMBRE 2026</div>
-      <div class="file-date">03/04/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/NUOVA%20STRATEGIA%20SETTEMBRE%202026%20RIEPILOGO%2003_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'NUOVA%20STRATEGIA%20SETTEMBRE%202026%20RIEPILOGO%2003_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">SAP ACADEMY</div>
-      <div class="file-date">13/02/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/SAP%20ACADEMY%20RIEPILOGO%2013_02_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'SAP%20ACADEMY%20RIEPILOGO%2013_02_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">SAP SERVICE LAYER</div>
-      <div class="file-date">03/04/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/SAP%20SERVICE%20LAYER%20RIEPILOGO%2003_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'SAP%20SERVICE%20LAYER%20RIEPILOGO%2003_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">SITI WEB</div>
-      <div class="file-date">04/03/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/SITI%20WEB%20RIEPILOGO%2004_03_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'SITI%20WEB%20RIEPILOGO%2004_03_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">STRUMENTI DI CATTURA VOCALE</div>
-      <div class="file-date">26/03/2026</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/STRUMENTI%20DI%20CATTURA%20VOCALE%20RIEPILOGO%2026_03_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'STRUMENTI%20DI%20CATTURA%20VOCALE%20RIEPILOGO%2026_03_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-</ul>
+<ul class="file-list" id="progetti"></ul>
 
 <div class="section-title">Documenti operativi</div>
-<ul class="file-list">
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">ISTRUZIONI RIEPILOGO E NAMING</div>
-      <div class="file-date">Standard operativo per la creazione dei riepiloghi</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/001.ISTRUZIONI_RIEPILOGO_E_NAMING.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, '001.ISTRUZIONI_RIEPILOGO_E_NAMING.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">REPORT SINCRONIZZAZIONE 04/04/2026</div>
-      <div class="file-date">Esito sincronizzazione riepiloghi</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/002.REPORT_SINCRONIZZAZIONE_04_04_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, '002.REPORT_SINCRONIZZAZIONE_04_04_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-  <li class="file-item">
-    <div class="file-info">
-      <div class="file-name">NAMING VICECONTI (Guida completa)</div>
-      <div class="file-date">25/02/2026 — Convenzioni di naming ecosistema</div>
-    </div>
-    <div class="file-actions">
-      <a class="btn" href="https://github.com/viceconti-hub/contesto-ai/blob/main/NAMING%20VICECONTI%20RIEPILOGO%2025_02_2026.md" target="_blank">📄 Leggi</a>
-      <button class="btn" onclick="copyRaw(this, 'NAMING%20VICECONTI%20RIEPILOGO%2025_02_2026.md')">📋 Copia raw</button>
-    </div>
-  </li>
-</ul>
+<ul class="file-list" id="operativi"></ul>
 
 <script>
-const BASE_RAW = 'https://raw.githubusercontent.com/viceconti-hub/contesto-ai/refs/heads/main/';
+const REPO = 'viceconti-hub/contesto-ai';
+const BRANCH = 'main';
+const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/refs/heads/${BRANCH}/`;
+const BASE_GITHUB = `https://github.com/${REPO}/blob/${BRANCH}/`;
 
-function copyRaw(btn, filename) {
-  const url = BASE_RAW + filename;
-  navigator.clipboard.writeText(url).then(() => {
+const sintesi = [
+  { name: 'SINTESI ECOSISTEMA VICECONTI', file: 'SINTESI ECOSISTEMA VICECONTI SINTESI.md', tag: 'SINTESI' },
+];
+
+const progetti = [
+  { name: 'AI HUMAN LAB', file: 'AI HUMAN LAB RIEPILOGO.md' },
+  { name: 'ASSISTENTI INTELLIGENTI', file: 'ASSISTENTI INTELLIGENTI RIEPILOGO.md' },
+  { name: 'AUDIT INFRASTRUTTURA', file: 'AUDIT INFRASTRUTTURA RIEPILOGO.md' },
+  { name: 'DATABASE CENTRALIZZATO', file: 'DATABASE CENTRALIZZATO RIEPILOGO.md' },
+  { name: 'MEMORIA E CONTESTO AI', file: 'MEMORIA E CONTESTO AI RIEPILOGO.md' },
+  { name: 'n8n', file: 'n8n RIEPILOGO.md' },
+  { name: 'NUOVA STRATEGIA SETTEMBRE 2026', file: 'NUOVA STRATEGIA SETTEMBRE 2026 RIEPILOGO.md' },
+  { name: 'SAP ACADEMY', file: 'SAP ACADEMY RIEPILOGO.md' },
+  { name: 'SAP SERVICE LAYER', file: 'SAP SERVICE LAYER RIEPILOGO.md' },
+  { name: 'SITI WEB', file: 'SITI WEB RIEPILOGO.md' },
+  { name: 'STRUMENTI DI CATTURA VOCALE', file: 'STRUMENTI DI CATTURA VOCALE RIEPILOGO.md' },
+];
+
+const operativi = [
+  { name: 'ISTRUZIONI RIEPILOGO E NAMING', file: 'ISTRUZIONI RIEPILOGO E NAMING.md', desc: 'Standard operativo' },
+  { name: 'NAMING VICECONTI (Guida)', file: 'NAMING VICECONTI.md', desc: 'Convenzioni di naming ecosistema' },
+];
+
+function enc(f) { return encodeURIComponent(f); }
+
+function renderItem(item) {
+  const e = enc(item.file);
+  const tagHtml = item.tag ? ` <span class="tag sintesi">${item.tag}</span>` : '';
+  const descHtml = item.desc ? item.desc + ' — ' : '';
+  return `
+    <li class="file-item" data-file="${item.file}">
+      <div class="file-info">
+        <div class="file-name">${item.name}${tagHtml}</div>
+        <div class="file-date">${descHtml}<span class="last-update">...</span></div>
+      </div>
+      <div class="file-actions">
+        <a class="btn" href="${BASE_GITHUB}${e}" target="_blank">📄 GitHub</a>
+        <a class="btn" href="${BASE_RAW}${e}" target="_blank">📝 Raw</a>
+        <button class="btn" onclick="copyLink(this,'${e}')">📋 Copia link</button>
+      </div>
+    </li>`;
+}
+
+document.getElementById('sintesi').innerHTML = sintesi.map(renderItem).join('');
+document.getElementById('progetti').innerHTML = progetti.map(renderItem).join('');
+document.getElementById('operativi').innerHTML = operativi.map(renderItem).join('');
+
+async function loadDates() {
+  const allFiles = [...sintesi, ...progetti, ...operativi];
+  for (const item of allFiles) {
+    try {
+      const resp = await fetch(`https://api.github.com/repos/${REPO}/commits?path=${enc(item.file)}&sha=${BRANCH}&per_page=1`);
+      if (!resp.ok) continue;
+      const commits = await resp.json();
+      if (commits.length > 0) {
+        const date = new Date(commits[0].commit.committer.date);
+        const dateStr = date.toLocaleDateString('it-IT', { day:'2-digit', month:'2-digit', year:'numeric' });
+        const timeStr = date.toLocaleTimeString('it-IT', { hour:'2-digit', minute:'2-digit' });
+        const el = document.querySelector(`[data-file="${item.file}"] .last-update`);
+        if (el) el.textContent = 'agg. ' + dateStr + ' ' + timeStr;
+      }
+    } catch(e) {}
+  }
+}
+
+loadDates();
+
+function copyLink(btn, filename) {
+  navigator.clipboard.writeText(BASE_RAW + filename).then(() => {
     const orig = btn.textContent;
     btn.textContent = '✓ Copiato';
     btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = orig;
-      btn.classList.remove('copied');
-    }, 2000);
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
   });
 }
 </script>
