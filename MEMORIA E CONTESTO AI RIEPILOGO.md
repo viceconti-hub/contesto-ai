@@ -1,3 +1,9 @@
+```
+MEMORIA E CONTESTO AI RIEPILOGO 06_04_2026.md
+```
+
+---
+
 # MEMORIA E CONTESTO AI — Riepilogo del 6 aprile 2026
 
 ## Stato attuale
