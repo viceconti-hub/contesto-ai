@@ -160,6 +160,7 @@ h1 {
 <header>
   <h1>Contesto AI — Viceconti</h1>
   <div class="subtitle">Riepiloghi operativi dei progetti — contesto per Claude, ChatGPT, Gemini</div>
+  <div class="subtitle" id="last-sync" style="margin-top: 6px; font-family: var(--mono); font-size: 12px;"></div>
 </header>
 
 <div class="instructions">
@@ -231,6 +232,7 @@ document.getElementById('progetti').innerHTML = progetti.map(renderItem).join(''
 document.getElementById('operativi').innerHTML = operativi.map(renderItem).join('');
 
 async function loadDates() {
+  // Data per-file dall'ultimo commit effettivo
   const allFiles = [...sintesi, ...progetti, ...operativi];
   for (const item of allFiles) {
     try {
@@ -246,6 +248,17 @@ async function loadDates() {
       }
     } catch(e) {}
   }
+
+  // Data globale ultimo sync da last_push.json
+  try {
+    const resp = await fetch(BASE_RAW + 'last_push.json?' + Date.now());
+    if (!resp.ok) return;
+    const data = await resp.json();
+    if (data.last_push) {
+      const el = document.getElementById('last-sync');
+      if (el) el.textContent = 'Ultimo sync: ' + data.last_push;
+    }
+  } catch(e) {}
 }
 
 loadDates();
