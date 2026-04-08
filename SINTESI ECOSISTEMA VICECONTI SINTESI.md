@@ -1,4 +1,4 @@
-# SINTESI ECOSISTEMA VICECONTI
+# SINTESI ECOSISTEMA VICECONTI ciao
 ## Documento di visione e stato operativo
 
 *Data: 4 aprile 2026*
