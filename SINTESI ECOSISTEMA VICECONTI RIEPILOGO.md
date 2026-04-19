@@ -1,7 +1,7 @@
 # SINTESI ECOSISTEMA VICECONTI
 ## Documento di visione e stato operativo
 
-*Aggiornato al 18 aprile 2026 — sostituisce versione dell'8 marzo 2026*
+*Aggiornato al 19 aprile 2026 — sostituisce versione del 18 aprile 2026*
 
 ---
 
@@ -36,6 +36,7 @@
 |-----------|-------|------|
 | **SAP Business One 10.0 + Service Layer** | ✅ Operativo | Attivo dal 29/03/2026. 111 fatture registrate automaticamente. Server SQLPRD0303 stabilizzato |
 | **SAP Query Engine v2.5** | ✅ Operativo | Estrazioni orarie, JSON su GitHub Pages via API |
+| **Database Centralizzato** | ✅ Operativo | Hub multi-destinazione, 10.198 prodotti, sync SAP Service Layer, flusso end-to-end validato |
 | **n8n v2.14.2** | ✅ Operativo | PC Lauria, ngrok dominio statico, Task Scheduler auto-start. Workflow: AudioPen → Telegram NOTE PERSONALI + Google Drive |
 | **Viceconti Hub + Hub Documentale** | ✅ Operativi | GitHub Pages. 3.068 file, 257 clienti |
 | **Contesto AI su GitHub Pages** | ✅ Operativo | repo contesto-ai, file .md a nome fisso, fetch validato su Claude/ChatGPT/Gemini |
@@ -71,6 +72,20 @@ Prospero chiude attività in SAP
 → al prossimo ciclo il modulo non viene rigenerato
 ```
 
+### Workflow Database Centralizzato — flusso articoli end-to-end
+
+```
+Listino fornitore (Excel/CSV originale)
+→ converti_{fornitore}.py → formato standard
+→ import_unico.py → prodotti.db (SQLite)
+→ sync_sap.py → Service Layer API → SAP Business One
+
+Validato in produzione 19/04/2026:
+• Coldline: 1.737 nuovi articoli + 166 aggiornamenti prezzi
+• Morini: pulizia 11.710 articoli obsoleti
+• REPA/IDEAM: test 9 articoli via Assistente Amministrativa
+```
+
 ---
 
 ## 3. PRINCIPI ARCHITETTURALI CONSOLIDATI
@@ -79,6 +94,7 @@ Prospero chiude attività in SAP
 |-----------|-------------|
 | **HTML come trinità** | Interfaccia + documento + dato strutturato in un file solo |
 | **Attività SAP come trigger documentale universale** | Qualsiasi tipo di attività SAP può generare un HTML pre-compilato che uno script trasforma in qualsiasi documento SAP. Assistenza → offerta/DDT è il primo caso. Offerte, ordini, consegne replicano lo stesso pattern |
+| **Il formato standard come stella polare** | La rigidità del formato di ingresso del database semplifica tutto quello che viene prima e dopo. La normalizzazione a monte è flessibile e può evolvere; l'import e il sync sono rigidi e testati una volta sola |
 | **Puzzle (non architettura sequenziale)** | I pezzi dell'automazione possono essere completati in qualsiasi ordine senza dipendenze sequenziali obbligatorie |
 | **Digitizzazione ≠ automazione** | Digitizzazione rende le cose digitali. Automazione le rende auto-eseguibili. Confonderle porta a aspettative irrealistiche |
 | **Ogni canale di input ha una destinazione finale** | Telegram non è mai la destinazione. Il flusso deve uscire verso il sistema giusto prima che l'informazione diventi difficile da recuperare |
@@ -148,8 +164,8 @@ Prospero chiude attività in SAP
 
 | Progetto | Stato | Note |
 |----------|-------|------|
-| Pipeline PrestaShop | Standby consapevole | Da riprendere H2 2026 |
-| Database Centralizzato | Operativo/non integrato | 9.785 prodotti |
+| Pipeline PrestaShop | Standby consapevole | Da riprendere H2 2026, infrastruttura Database pronta |
+| Database Centralizzato | ✅ Operativo | Hub multi-destinazione, 10.198 prodotti, sync SAP Service Layer |
 
 ---
 
@@ -186,7 +202,10 @@ Telegram → copia-incolla → Reminders (condivisione collaboratori)
   - 1.1.2 Entrata Merci — DDT fornitori (🔴 non iniziato)
   - 1.1.3 Fatture Acquisti (🟡 impostato — `registra_fattura.py`)
 
-Materiale base raccolto nel viaggio del 18 aprile (questionario completo). Struttura da sviluppare sabato 19 aprile.
+**Cap. 4 — Fondamenta Anagrafiche**
+- 4.2 Anagrafica Articoli (✅ operativo — Database Centralizzato)
+
+Materiale base raccolto nel viaggio del 18 aprile (questionario completo). Struttura completata il 19 aprile.
 
 **Fornitori con documenti transazionali strutturati (Gmail):**
 
@@ -210,9 +229,11 @@ COMMAND LAYER        → Claude (chat + progetti), Reminders, Asana, trigger man
 ORCHESTRATOR LAYER   → n8n (PC Lauria + Mac da configurare)
         ↓
 ENGINE LAYER         → SAP Query Engine v2.5, crea_moduli_vuoti.py,
-                       crea_offerta.py, registra_fattura.py, aggiorna_attivita.py
+                       crea_offerta.py, registra_fattura.py, aggiorna_attivita.py,
+                       sync_sap.py, import_unico.py, converti_{fornitore}.py
         ↓
-PERSISTENCE LAYER    → SAP B1, GitHub Pages, Dropbox, Apple Reminders/Calendar
+PERSISTENCE LAYER    → SAP B1, prodotti.db (hub articoli), GitHub Pages, 
+                       Dropbox, Apple Reminders/Calendar
         ↓
 INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
                        Telegram, PrestaShop
@@ -223,6 +244,7 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 | Risorsa | Dettaglio |
 |---------|-----------|
 | ERP | SAP Business One 10.0, SQL Server, Service Layer operativo |
+| Database articoli | SQLite prodotti.db, schema v2, C:\Viceconti\catalogo_centrale\ |
 | Server DB | SQLPRD0303 (192.168.122.99) |
 | PC sviluppo | Win11 sede Lauria — script, n8n, Task Scheduler |
 | MacBook Air | Mobile — Claude Desktop, Apple Reminders/Notes MCP |
@@ -239,14 +261,18 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 
 ---
 
-## 8. OPEN ITEMS — Priorità aggiornate al 18 aprile 2026
+## 8. OPEN ITEMS — Priorità aggiornate al 19 aprile 2026
 
 | Priorità | Attività | Progetto |
 |----------|---------|---------|
 | 🔴 Alta | Token GitHub — rigenerare (scade 9 maggio) | SITI WEB |
 | 🔴 Alta | Task Scheduler per `crea_moduli_vuoti.py` sul PC Lauria | SAP SERVICE LAYER |
-| 🔴 Alta | Manuale Automazioni — Cap. 1 struttura completa | Nuovo |
+| 🔴 Alta | Correzione logica prezzi Database Centralizzato (Morini ×2) | DATABASE CENTRALIZZATO |
+| 🔴 Alta | Migrazione codici Morini: MOR.xxxxx → MOR.0xxxxxx | DATABASE CENTRALIZZATO |
 | 🔴 Alta | Completamento `registra_fattura.py` | SAP SERVICE LAYER |
+| 🟡 Media | Import nuovo listino Morini + sync produzione | DATABASE CENTRALIZZATO |
+| 🟡 Media | Aggiornamento riepilogo Database Centralizzato su GitHub | DATABASE CENTRALIZZATO |
+| 🟡 Media | Pipeline PrestaShop ripresa (infrastruttura DB pronta) | PIPELINE PRESTASHOP |
 | 🟡 Media | n8n su Mac (per nodi Apple nativi: Reminders, Calendar) | n8n |
 | 🟡 Media | Allineamento Reminders ↔ SAP Activities via n8n | n8n |
 | 🟡 Media | Smistamento AudioPen per tag via n8n | n8n |
@@ -269,5 +295,5 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 
 ---
 
-*Aggiornato al 18 aprile 2026. Sostituisce versione dell'8 marzo 2026.*
-*Prossimo aggiornamento previsto: fine weekend 19-20 aprile 2026 dopo analisi Manuale Automazioni.*
+*Aggiornato al 19 aprile 2026. Sostituisce versione del 18 aprile 2026.*
+*Prossimo aggiornamento previsto: dopo completamento task Database Centralizzato prioritari e sviluppo Manuale Automazioni.*
