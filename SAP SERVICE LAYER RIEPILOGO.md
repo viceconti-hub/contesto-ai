@@ -1,106 +1,137 @@
-# SAP Service Layer — Riepilogo del 3 aprile 2026
+# SAP Service Layer — Riepilogo del 22 aprile 2026
 
 ## Stato attuale
 
-Il Service Layer è operativo in produzione e validato per la registrazione automatica di fatture di acquisto di servizi. In questa sessione è stata completata la prima automazione contabile reale su SAP B1 via API, con 111 fatture registrate in produzione senza errori. Il server SQLPRD0303 è stato riavviato dopo 1090 giorni di uptime e la RAM è scesa dal 92% al 63%.
+Il Service Layer è operativo in produzione. L'interfaccia `viceconti-attivita-v01.html` è il punto centrale di sviluppo attivo: gestisce le Attività SAP in lettura/scrittura e ora è anche il punto di innesco del workflow SAP → Google Calendar, operativo dal 22/04/2026.
 
 ---
 
-## Lavoro svolto in questa sessione
+## Architettura corrente
 
-### Registrazione fatture acquisti via Service Layer
+### Infrastruttura
+- **Service Layer:** `https://192.168.122.99:50000/b1s/v2/` — operativo
+- **Server:** SQLPRD0303 (192.168.122.99) — stabilizzato dopo riavvio del 03/04/2026 (RAM al 63%, era al 92%)
+- **Proxy locale:** `proxy.py` su localhost:8080 per sviluppo da PC esterno (gestisce certificato self-signed)
+- **Credenziali SAP:** manager / viceconti
 
-**Validazione payload su TEST_Viceconti:**
-- Identificati e risolti i due errori bloccanti:
-  - `-5002` "Item number is missing" → causa: mancanza di `DocType: "dDocument_Service"` a livello header
-  - `-10` "VAT Allocation Date is mandatory" → causa: campo `VatDate` obbligatorio, mappato sulla stessa data di `DocDate`
-- Template payload definitivo validato per fatture di servizi (senza movimentazione magazzino)
+### Interfaccia `viceconti-attivita-v01.html` — stato al 22/04/2026
 
-**Test operazioni di correzione:**
-- `DELETE` su fattura registrata → bloccato da SAP anche via Service Layer (errore -5006) — comportamento corretto e atteso
-- `POST /PurchaseInvoices(DocEntry)/Cancel` → funziona, crea storno automatico pulito — questa è la procedura di correzione a regime
+Funzionalità operative:
+- Lettura attività da Service Layer (OCLG) con filtro data e stato
+- Editing inline: `U_Esito`, `Notes`, `StartDate`, `StartTime` con salvataggio PATCH su SAP
+- Chiusura/riapertura attività via API (il client SAP blocca la riapertura, il Service Layer la esegue)
+- Creazione nuova attività con form completo incluso `PersonalFlag`
+- **Selezione multipla con checkbox + bottone "📅 Sincronizza su Calendar"** — invia le attività selezionate all'n8n webhook per creazione eventi Google Calendar
+- Badge "N selezionate", conferma visiva post-invio (bordo verde su righe), banner esito
 
-**Comportamento di `/Drafts` — non risolto:**
-- Tutti i tentativi di `POST /Drafts` con `DocObjectCode: "oPurchaseInvoices"` hanno prodotto una registrazione diretta invece di un documento parcheggiato
-- Il documento parcheggiato Cimbali visibile nell'elenco bozze del client era stato creato manualmente, non via Service Layer
-- Il perché `/Drafts` registri invece di parcheggiare rimane inspiegato — da chiarire con Vincenzo Strazzullo
-- Per il flusso fatture Wind a regime si usa il POST diretto a `PurchaseInvoices`, indipendentemente dalla risoluzione di questo punto
+### Campi editabili inline
+| Campo SAP | Comportamento |
+|---|---|
+| `U_Esito` | Dropdown, salvataggio PATCH immediato |
+| `Notes` | Testo libero, salvataggio su `onblur` |
+| `StartDate` | Data, salvataggio su `onblur` |
+| `StartTime` | Ora, salvataggio su `onblur` |
 
-**Script Python `registra_fattura.py` (sviluppato in Claude Code):**
-- Fase 1: script minimale su singolo XML Wind Tre → TEST_Viceconti → OK
-- Fase 2: batch 48 fatture Wind Tre → TEST_Viceconti → 42 OK, 6 bloccate per periodo contabile chiuso (dicembre 2025 — non un errore dello script)
-- Fase 3: integrazione indice Excel `Indice_Fornitori_SAP.xlsx` come lookup table PIVA → CardCode/AccountCode/VatGroup
-- Lancio completo su `SBO_Viceconti` (produzione): **111 fatture registrate, 27 fornitori, zero errori**
-- Post-registrazione: eliminazione automatica del file XML dalla cartella APERTE
+**Nota:** campo `Subject` (Oggetto) non editabile — SAP richiede intero (codice lista), non testo libero.
 
-**Indice fornitori `Indice_Fornitori_SAP.xlsx`:**
-- 80 fornitori unici catalogati
-- 27 fornitori con mapping completo (compilati con query SQL su OPCH/PCH1/OCRD + integrazione manuale per SEO CUBE SRL e VAR GROUP SPA)
-- 10 fornitori esclusi per ora (fatture con movimentazione magazzino o dati mancanti)
-- Il file è la lookup table dello script — da aggiornare quando si aggiungono nuovi fornitori al perimetro
+---
 
-**Struttura cartelle operativa:**
+## Workflow SAP → Google Calendar (n8n)
+
+### Architettura
 ```
-FATTURE DA FORNITORE/
-├── APERTE/           → XML da registrare (input script)
-├── ARCHIVIO/[mese]/  → XML rinominati per mese (storico)
-└── REGISTRATE/       → ZIP originali e PDF storici
+viceconti-attivita-v01.html
+→ selezione checkbox attività
+→ POST webhook n8n (sync-calendar)
+→ Split Out → Code → Google Calendar Create Event
+
+Routing per tipo:
+• ActivityType = ASSISTENZA → calendario ASSISTENZA TECNICA (vicecontisnc@gmail.com)
+• ActivityType = CONSEGNE → calendario CONSEGNE (iur82rio0kb0545l3h2puertqg@group.calendar.google.com)
 ```
 
-### Infrastruttura — Riavvio SQLPRD0303
+### Mapping campi SAP → Calendar
+| Campo Calendar | Fonte SAP |
+|---|---|
+| Titolo | `CardName + Details` |
+| Data/ora inizio | `StartDate + StartTime` |
+| Data/ora fine | `EndTime` se presente, altrimenti `StartTime + 1h` |
+| Location | `City` |
+| Descrizione | `TecName + ActivityType + N. Attività (ActivityCode)` |
 
-- Ticket #1382783 aperto il 16/03 con Var Group: chiuso il 31/03 senza intervento reale (uptime invariato a 1090 giorni, RAM invariata al 92%)
-- Escalation a 3W Sistemi (Antonio Forlani) via WhatsApp il 03/04 → riavvio controllato eseguito in giornata
-- Risultati post-riavvio:
-  - **Uptime:** azzerato (5 ore)
-  - **RAM:** 7,6/12,0 GB (63%) — dal 92% al 63%, 4,4 GB liberi
-  - **Apache Commons Daemon (Service Layer):** 721 MB — da 2,1 GB
-  - **SQL Server:** 2,0 GB — stabile
+### Configurazione n8n
+- **URL webhook:** `https://karlene-apsidal-ruminantly.ngrok-free.dev/webhook/sync-calendar`
+- **Fuso orario n8n:** `Europe/Rome`
+- **Ora fine:** calcolata come stringa per evitare conversione UTC che sottraeva 2 ore
+- **Google OAuth:** `vicecontisnc@gmail.com`, progetto Google Cloud `n8n-viceconti`
 
----
-
-## Decisioni prese
-
-- **Flusso fatture a regime:** POST diretto a `PurchaseInvoices` + `Cancel` in caso di errore. Le Drafts non sono necessarie per il perimetro attuale (fatture Wind e fornitori servizi ricorrenti con mapping validato).
-- **Perimetro automazione:** solo fatture di servizi (senza entrata merci). Le fatture acquisto con movimentazione magazzino restano manuali.
-- **Spostamento in ARCHIVIO:** lo script elimina il file XML da APERTE dopo registrazione riuscita. Lo spostamento fisico in ARCHIVIO avviene separatamente (da valutare se automatizzare).
-- **Linguaggio script:** Python (coerente con Pipeline PrestaShop, più leggibile per parsing XML e gestione Excel rispetto a PowerShell).
-- **Interlocutore infrastruttura:** 3W Sistemi (Antonio Forlani) è il contatto operativo diretto per interventi su SQLPRD0303. Var Group è il provider fisico ma risponde tramite 3W.
-
----
-
-## Prossimi passi
-
-1. **Completare il riempimento dell'indice fornitori** — aggiungere CardCode SAP per i fornitori attualmente esclusi, man mano che si vuole estendere il perimetro
-2. **Spostamento file in ARCHIVIO** — aggiungere allo script il movimento XML → ARCHIVIO/[anno]/[mese]/ dopo registrazione riuscita (attualmente solo eliminazione da APERTE)
-3. **Manutenzione periodica SQLPRD0303** — richiedere a 3W Sistemi la pianificazione di riavvii programmati (mensili o bimestrali) e monitoraggio RAM con alert sopra 85%
-4. **Aggiornamento SAP B1** — prerequisito per stabilità a lungo termine; da pianificare con Vincenzo Strazzullo
+### Variabile nell'HTML
+```javascript
+const N8N_WEBHOOK_URL = 'https://karlene-apsidal-ruminantly.ngrok-free.dev/webhook/sync-calendar';
+```
 
 ---
 
-## Blocchi e dipendenze
+## Prossimi sviluppi previsti (priorità)
 
-**Domande aperte per Vincenzo Strazzullo:**
-1. Documento parcheggiato via Service Layer — conferma del payload corretto per `POST /Drafts`
-2. B1iF — è installato? Ha esperienza di configurazione?
-3. Tool PDF SAP — funzionamento, costi, cartella di destinazione configurabile
-4. Esposizione Service Layer senza VPN — per accesso futuro da tablet dei tecnici
+### Caso d'uso 2 — Calendar → SAP (U_Esito)
+Il tecnico aggiorna la descrizione dell'evento Google Calendar a fine intervento → n8n intercetta la modifica → scrive il testo in `U_Esito` dell'Attività SAP corrispondente.
 
-**Periodo contabile chiuso (dicembre 2025):** 6 fatture Wind bloccate su TEST_Viceconti per periodo chiuso. Le stesse fatture sono state registrate correttamente su SBO_Viceconti (produzione) dove i periodi sono aperti. Non è un problema dello script né un blocco operativo.
+**Prerequisito:** salvare `EventId` ↔ `ActivityCode` al momento della creazione evento. Meccanismo: `extendedProperties` di Google Calendar per memorizzare l'`ActivityCode`, oppure log su file/database.
+
+### Prevenzione duplicati
+Il workflow attuale esegue sempre `Create`. Implementare logica: prima di creare, verificare se esiste già un evento con `ActivityCode` nelle `extendedProperties`. Se esiste → fare `Update` invece di `Create`.
+
+### Task Scheduler per `crea_moduli_vuoti.py`
+Script operativo ma non ancora schedulato sul PC Lauria — da configurare con Task Scheduler.
 
 ---
 
-## Conoscenza tecnica acquisita (da conservare)
+## Conoscenza tecnica consolidata Service Layer
 
-| Campo | Valore | Note |
+| Aspetto | Dettaglio |
+|---|---|
+| Autenticazione | Cookie `B1SESSION` via `POST /Login`, gestito automaticamente da `requests.Session()` |
+| Riapertura attività | `PATCH /Activities(code)` con `Closed: "tNO"` — bypass del blocco client SAP |
+| Chiusura attività | `PATCH /Activities(code)` con `Closed: "tYES"` |
+| Editing parziale | `PATCH` con solo i campi da modificare — SAP aggiorna solo quelli |
+| Fatture servizi | `POST /PurchaseInvoices` con `DocType: "dDocument_Service"` + `VatDate` obbligatorio |
+| Storno fattura | `POST /PurchaseInvoices(DocEntry)/Cancel` — unica operazione disponibile |
+| DELETE fattura | Bloccato anche via API (errore -5006) |
+| Bozze/Drafts | `POST /Drafts` con `DocObjectCode` — comportamento anomalo non risolto, registra invece di parcheggiare |
+| DocEntry vs DocNum | Service Layer usa sempre DocEntry (chiave interna DB), non DocNum (numero visibile) |
+
+---
+
+## Domande aperte per Vincenzo Strazzullo
+(email inviata 11/04/2026, risposta in attesa)
+
+1. Payload corretto per documento parcheggiato via `/Drafts`
+2. B1iF — installato? Esperienza di configurazione?
+3. Tool PDF SAP — funzionamento, costi, cartella destinazione configurabile
+4. Esposizione Service Layer senza VPN per tablet tecnici
+
+---
+
+## Credenziali e scadenze urgenti
+
+| Credenziale | Scadenza | Priorità |
 |---|---|---|
-| `DocType` | `"dDocument_Service"` | Obbligatorio a livello header per fatture di servizi |
-| `VatDate` | uguale a `DocDate` | Obbligatorio, distinto da `TaxDate` |
-| `DocumentStatus` | non specificare | SAP registra direttamente; `bost_Open` = aperta non pagata, non bozza |
-| DELETE su fattura registrata | bloccato (-5006) | Anche via Service Layer |
-| Storno fattura | `POST /PurchaseInvoices(DocEntry)/Cancel` | Unica operazione di annullamento disponibile |
-| `/Drafts` | documento parcheggiato | `DocObjectCode: "oPurchaseInvoices"` necessario |
+| **Token GitHub** | **9 maggio 2026** | **🔴 Rigenerare subito** |
+| Google OAuth n8n | 2027 | — |
+| Token Dropbox OAuth2 | Nessuna | — |
 
 ---
 
-*Sessione del 3 aprile 2026 — Viceconti s.n.c.*
+## File e path rilevanti
+
+| File | Path | Stato |
+|---|---|---|
+| `viceconti-attivita-v01.html` | GitHub Pages viceconti-hub/portale | Produzione |
+| `registra_fattura.py` | C:\Viceconti\viceconti-hub | Operativo (incompleto) |
+| `Indice_Fornitori_SAP.xlsx` | C:\Users\PC\Dropbox\HUB DOCUMENTALE\ACQUISTI\FATTURE DA FORNITORE | 27 fornitori mappati |
+| `proxy.py` | localhost:8080 | Dev da PC esterno |
+
+---
+
+*Sessione del 22 aprile 2026 — Viceconti s.n.c.*
