@@ -1,7 +1,7 @@
 # SINTESI ECOSISTEMA VICECONTI
 ## Documento di visione e stato operativo
 
-*Aggiornato al 19 aprile 2026 — sostituisce versione del 18 aprile 2026*
+*Aggiornato al 22 aprile 2026 — sostituisce versione del 19 aprile 2026*
 
 ---
 
@@ -37,7 +37,8 @@
 | **SAP Business One 10.0 + Service Layer** | ✅ Operativo | Attivo dal 29/03/2026. 111 fatture registrate automaticamente. Server SQLPRD0303 stabilizzato |
 | **SAP Query Engine v2.5** | ✅ Operativo | Estrazioni orarie, JSON su GitHub Pages via API |
 | **Database Centralizzato** | ✅ Operativo | Hub multi-destinazione, 10.198 prodotti, sync SAP Service Layer, flusso end-to-end validato |
-| **n8n v2.14.2** | ✅ Operativo | PC Lauria, ngrok dominio statico, Task Scheduler auto-start. Workflow: AudioPen → Telegram NOTE PERSONALI + Google Drive |
+| **Workflow SAP → Google Calendar** | ✅ Operativo | Sync attività SAP → calendari ASSISTENZA TECNICA/CONSEGNE via n8n, interfaccia Service Layer |
+| **n8n v2.14.2** | ✅ Operativo | PC Lauria, ngrok dominio statico, Task Scheduler auto-start. Workflows: AudioPen → Telegram + Drive, SAP → Calendar |
 | **Viceconti Hub + Hub Documentale** | ✅ Operativi | GitHub Pages. 3.068 file, 257 clienti |
 | **Contesto AI su GitHub Pages** | ✅ Operativo | repo contesto-ai, file .md a nome fisso, fetch validato su Claude/ChatGPT/Gemini |
 | **`RIAPRI E MODIFICA MODULO TECNICO.html`** | ✅ Beta produzione | v4: auto-idratazione, modulo vuoto, campi header editabili, sovrascrittura stesso nome file |
@@ -86,6 +87,23 @@ Validato in produzione 19/04/2026:
 • REPA/IDEAM: test 9 articoli via Assistente Amministrativa
 ```
 
+### Workflow SAP → Google Calendar — sync attività operativo
+
+```
+Service Layer SAP (viceconti-attivita-v01.html)
+→ Selezione manuale attività + checkbox
+→ Click "Sincronizza su Calendar"
+→ n8n webhook (sync-calendar) 
+→ Routing per tipo: ASSISTENZA vs CONSEGNE
+→ Google Calendar API → Eventi creati in calendari dedicati
+
+Operativo dal 22/04/2026:
+• Calendari: ASSISTENZA TECNICA (vicecontisnc@gmail.com) 
+• CONSEGNE (iur82rio0kb0545l3h2puertqg@group.calendar.google.com)
+• Campi editabili: Data inizio, Ora inizio → salvataggio PATCH SAP
+• Mapping completo: CardName+Details → titolo, StartDate+StartTime → calendario
+```
+
 ---
 
 ## 3. PRINCIPI ARCHITETTURALI CONSOLIDATI
@@ -113,7 +131,7 @@ Validato in produzione 19/04/2026:
 | Sintesi Ecosistema | Attivo | Questo documento |
 | SAP Service Layer | ✅ Operativo | Attivo da 29/03/2026 |
 | SAP Academy | Attivo | Documentazione tecnica SAP |
-| n8n | ✅ Operativo | Workflow AudioPen → Telegram + Drive |
+| n8n | ✅ Operativo | Workflows: AudioPen → Telegram + Drive, SAP → Calendar |
 | Audit Infrastruttura | Completato | — |
 
 ### B. PORTALI WEB E FRONTEND
@@ -142,14 +160,15 @@ Validato in produzione 19/04/2026:
 | ASSISTENTE AMMINISTRATIVA | ✅ Avviata | Prima settimana completata 13-18/04 |
 | Altri assistenti per aree | 🔴 Da avviare | Lunedì 13/04 avvio pianificato |
 
-### E. GESTIONE INPUT E TASK
+### E. GESTIONE INPUT, TASK E CALENDAR
 
 | Componente | Stato | Note |
 |-----------|-------|------|
 | AudioPen | ✅ Operativo | Voice-to-text, formato tag + struttura |
 | Apple Reminders | ✅ Adottato | Layer task management. Struttura liste consolidata |
+| **SAP → Google Calendar** | ✅ Operativo | Sync attività SAP → calendari ASSISTENZA/CONSEGNE via n8n |
 | Gmail MCP | ✅ Connesso | Solo bozze (no invio diretto) |
-| Calendar MCP | ✅ Connesso | 18 calendari mappati |
+| Calendar MCP | ✅ Connesso | 18 calendari mappati + integrazione SAP operativa |
 | Apple Notes MCP | ✅ Disponibile | Solo note tastiera (Pencil → immagine PNG) |
 
 ### F. STRATEGIA E GOVERNANCE
@@ -230,13 +249,14 @@ ORCHESTRATOR LAYER   → n8n (PC Lauria + Mac da configurare)
         ↓
 ENGINE LAYER         → SAP Query Engine v2.5, crea_moduli_vuoti.py,
                        crea_offerta.py, registra_fattura.py, aggiorna_attivita.py,
-                       sync_sap.py, import_unico.py, converti_{fornitore}.py
+                       sync_sap.py, import_unico.py, converti_{fornitore}.py,
+                       workflow sync-calendar (SAP → Google Calendar)
         ↓
 PERSISTENCE LAYER    → SAP B1, prodotti.db (hub articoli), GitHub Pages, 
-                       Dropbox, Apple Reminders/Calendar
+                       Dropbox, Apple Reminders/Calendar, Google Calendar
         ↓
 INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
-                       Telegram, PrestaShop
+                       viceconti-attivita-v01.html (Service Layer), Telegram, PrestaShop
 ```
 
 ### Ambiente tecnico
@@ -251,6 +271,8 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 | Script path | C:\Viceconti\viceconti-hub |
 | Dropbox moduli | C:\Users\PC\Dropbox\HUB DOCUMENTALE\FILE TEMPORANEI\MODULI ATTIVITA' APERTE |
 | GitHub org | viceconti-hub (repos: portale, hub-documentale, contesto-ai) |
+| Google Calendar | Calendari: ASSISTENZA TECNICA, CONSEGNE (sync SAP operativo) |
+| n8n Webhook | karlene-apsidal-ruminantly.ngrok-free.dev (dominio statico) |
 
 ### Credenziali e scadenze
 
@@ -258,10 +280,11 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 |-------------|----------|---------|
 | **Token GitHub** | **9 maggio 2026** | **🔴 Urgente — rigenerare** |
 | Token Dropbox OAuth2 | Nessuna | — |
+| Google OAuth n8n (vicecontisnc@gmail.com) | 2027 | — |
 
 ---
 
-## 8. OPEN ITEMS — Priorità aggiornate al 19 aprile 2026
+## 8. OPEN ITEMS — Priorità aggiornate al 22 aprile 2026
 
 | Priorità | Attività | Progetto |
 |----------|---------|---------|
@@ -270,6 +293,9 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 | 🔴 Alta | Correzione logica prezzi Database Centralizzato (Morini ×2) | DATABASE CENTRALIZZATO |
 | 🔴 Alta | Migrazione codici Morini: MOR.xxxxx → MOR.0xxxxxx | DATABASE CENTRALIZZATO |
 | 🔴 Alta | Completamento `registra_fattura.py` | SAP SERVICE LAYER |
+| 🟡 Media | Calendar Caso d'uso 2: evento aggiornato → U_Esito SAP | GOOGLE CALENDAR |
+| 🟡 Media | Calendar: prevenire duplicati con EventId ↔ ActivityCode | GOOGLE CALENDAR |
+| 🟡 Media | Ngrok URL statico o alternativa per webhook stabile | GOOGLE CALENDAR |
 | 🟡 Media | Import nuovo listino Morini + sync produzione | DATABASE CENTRALIZZATO |
 | 🟡 Media | Aggiornamento riepilogo Database Centralizzato su GitHub | DATABASE CENTRALIZZATO |
 | 🟡 Media | Pipeline PrestaShop ripresa (infrastruttura DB pronta) | PIPELINE PRESTASHOP |
@@ -279,9 +305,10 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 | 🟡 Media | Caricamento ASSISTENTE AMMINISTRATIVA RIEPILOGO.md su GitHub | ASSISTENTI |
 | 🟡 Media | Fix URL fetch Sintesi su GitHub (filename: SINTESI non RIEPILOGO) | SITI WEB |
 | 🟡 Media | Pulizia attività storiche SAP (< 7000) | SAP |
-| 🟡 Media | Google Calendar → n8n → Hub Documentale + esito SAP | GOOGLE CALENDAR |
 | 🔵 Bassa | n8n — problema AudioPen → Telegram → Drive da diagnosticare | n8n |
 | 🔵 Bassa | Email Vincenzo Strazzullo — risposta in attesa (tool PDF, B1iF, XML, esposizione Service Layer) | SAP SERVICE LAYER |
+| 🔵 Bassa | Durata default attività da configurazione SAP B1 | GOOGLE CALENDAR |
+| 🔵 Bassa | Accesso Service Layer senza VPN per tecnici tablet | SAP SERVICE LAYER |
 
 ---
 
@@ -295,5 +322,6 @@ INTERFACCE           → Viceconti Hub, Hub Documentale, MODULO TECNICO HTML,
 
 ---
 
-*Aggiornato al 19 aprile 2026. Sostituisce versione del 18 aprile 2026.*
-*Prossimo aggiornamento previsto: dopo completamento task Database Centralizzato prioritari e sviluppo Manuale Automazioni.*
+*Aggiornato al 22 aprile 2026. Sostituisce versione del 19 aprile 2026.*
+*Integrato: Workflow SAP → Google Calendar operativo, n8n sync-calendar, Service Layer interface enhancement*
+*Prossimo aggiornamento previsto: weekend LLM Wiki Genesis (1-3 maggio 2026)*
