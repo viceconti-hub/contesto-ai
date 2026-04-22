@@ -1,108 +1,123 @@
-# n8n — Riepilogo del 6 aprile 2026
+# n8n — Riepilogo del 22 aprile 2026
 
 ## Stato attuale
 
-n8n è installato, configurato e operativo in produzione sul PC Lauria con avvio automatico. Il workflow AudioPen → Telegram + Google Drive è pubblicato e funzionante end-to-end. L'infrastruttura è stabile: n8n e ngrok si avviano automaticamente all'accensione del PC tramite Task Scheduler, il dominio ngrok è statico e permanente.
-
-Il progetto è passato in tre sessioni (4-6 aprile 2026) da "software non installato" a "workflow in produzione con avvio automatico".
+n8n è installato, configurato e operativo in produzione sul PC Lauria con avvio automatico. Tre workflow sono attivi in produzione. Il progetto è passato in meno di tre settimane (4-22 aprile 2026) da "software non installato" a tre workflow operativi che coprono cattura vocale, archiviazione note e sincronizzazione calendari SAP.
 
 ---
 
-## Lavoro svolto nel periodo 4-6 aprile 2026
+## Workflow in produzione
 
-### Sessione 4 aprile — Installazione e primo workflow
+### Workflow 1 — AudioPen → Telegram
+```
+AudioPen (nota vocale)
+    ↓ webhook (ritardo ~4 min)
+ngrok → localhost:5678
+    ↓
+n8n Webhook (POST)
+    └→ Telegram: messaggio formattato → gruppo NOTE PERSONALI
+```
+Ramo Google Drive **disattivato** (nodi presenti ma deactivated) — la funzione è coperta dal Workflow 2.
 
-- Installazione n8n v2.14.2 via npm globale su PC Lauria (Node.js v24.14.0)
-- Costruzione primo workflow: AudioPen → Webhook → Telegram + Google Drive
-- Configurazione credenziali: Telegram Bot, Dropbox (Access Token), Google Drive (OAuth2 via Google Cloud Console, progetto `n8n-viceconti`)
-- Installazione e configurazione ngrok per esporre il webhook a internet
-- Migrazione del ramo salvataggio da Dropbox aziendale a Google Drive personale (ragioni di privacy)
-- Creazione gruppo Telegram NOTE PERSONALI come destinazione dei messaggi AudioPen
-- Test end-to-end con nota vocale reale ✅
+---
 
-### Sessione 5 aprile — Stabilizzazione e contesto AI
+### Workflow 2 — NOTE PERSONALI → Google Drive
+```
+Telegram Trigger (tutti i messaggi del gruppo NOTE PERSONALI)
+    ↓
+Code JS (genera timestamp + slug dalle prime 5 parole + file .md)
+    ↓
+Google Drive Upload → cartella NOTE PERSONALI DA AUDIOPEN
+```
+Cattura qualsiasi messaggio nel gruppo — AudioPen (inoltrato), microfono nativo Claude, testo digitato. I messaggi diretti del bot (Workflow 1) non vengono duplicati per limitazione API Telegram (i bot non ricevono i propri messaggi).
 
-- Configurazione dominio statico ngrok (`karlene-apsidal-ruminantly.ngrok-free.dev`)
-- Validazione del pattern GitHub Pages per contesto AI (documentato nel progetto MEMORIA E CONTESTO AI)
-- Creazione sito indice `contesto-ai` su GitHub Pages
+**Nota:** token Google OAuth riconfigurato il 12 aprile — aggiunto redirect URI ngrok in Google Cloud Console e `vicecontip@gmail.com` come utente tester.
 
-### Sessione 6 aprile — Avvio automatico e rifinitura
+---
 
-- Configurazione n8n e ngrok come servizi automatici via Task Scheduler:
-  - Due task creati: "n8n Start" (ritardo 30s all'avvio) e "ngrok Start" (ritardo 60s all'avvio)
-  - Script batch in `C:\Viceconti\n8n\` (`start-n8n.bat` e `start-ngrok.bat`)
-  - Modalità: "Esegui solo se l'utente è connesso" (terminali visibili per monitoraggio)
-  - Problema password con "Esegui anche se l'utente non è connesso" — risolto cambiando modalità
-- Test riavvio PC: n8n e ngrok partono automaticamente, workflow operativo senza intervento manuale ✅
-- Configurazione cartella dedicata su Google Drive: file AudioPen ora salvati in "NOTE PERSONALI DA AUDIOPEN" (Folder ID: `131iWrhFJ6G_XbLnjuskRe-iIc0h_GvqS`)
-- Rimozione attribuzione n8n dai messaggi Telegram (Append Attribution → off)
+### Workflow 3 — sync-calendar (SAP → Google Calendar)
+```
+Webhook POST /sync-calendar
+    ↓
+Split Out (spacca array attivita[])
+    ↓
+Code JS (prepara payload Calendar: titolo, orari, location, descrizione, routing calendarId)
+    ↓
+Google Calendar → Create Event
+    (ASSISTENZA TECNICA o CONSEGNE in base ad ActivityType)
+```
+Innesco: Prospero seleziona manualmente attività dall'interfaccia Service Layer (`viceconti-attivita-v01.html`) e clicca "Sincronizza su Calendar". Semiautomatico per scelta — nessuna sincronizzazione indiscriminata.
 
-### Problemi incontrati e risolti nel periodo
+**Routing calendari:**
+- `ActivityType = ASSISTENZA` → calendario ASSISTENZA TECNICA (`vicecontisnc@gmail.com`)
+- `ActivityType = CONSEGNE` → calendario CONSEGNE (`iur82rio0kb0545l3h2puertqg@group.calendar.google.com`)
 
-- **Scrittura file su disco locale (n8n v2.14):** moduli `fs` e `child_process` bloccati, nodo Write File con restrizioni. Risolto con approccio cloud (upload via API Google Drive)
-- **Permessi Dropbox:** scope `files.content.write` mancante — risolto
-- **Google OAuth in fase di test:** richiesta aggiunta utente come tester — risolto
-- **Tunnel n8n v2:** flag `--tunnel` non supportato — risolto con ngrok esterno
-- **Task Scheduler e password:** task con "Esegui anche se l'utente non è connesso" non partiva senza password salvata — risolto con modalità "Esegui solo se l'utente è connesso"
-- **Vicolo cieco AI su scrittura filesystem:** identificato pattern di sunk cost cognitivo. Soluzione trovata tramite triangolazione con Gemini e ChatGPT (approccio cloud API)
+---
+
+## Lavoro svolto per periodo
+
+### 4-6 aprile — Installazione e primi workflow
+- Installazione n8n v2.14.2 via npm globale (Node.js v24.14.0)
+- Workflow AudioPen → Telegram + Google Drive (poi sdoppiato)
+- Configurazione ngrok dominio statico, credenziali Telegram, Google Drive, Dropbox
+- Avvio automatico via Task Scheduler (due batch in `C:\Viceconti\n8n\`)
+- Risolti: blocco fs/child_process in v2, tunnel flag deprecato, password Task Scheduler
+
+### 7 aprile — Scenario B (Telegram Trigger → Drive)
+- Creato Workflow 2 con Telegram Trigger
+- Privacy mode bot disabilitata via BotFather
+- Bot rimosso e riaggiunto al gruppo NOTE PERSONALI
+- Configurato `WEBHOOK_URL` in start-n8n.bat per risolvere errore HTTPS webhook
+- Naming file con slug dalle prime 5 parole del testo
+
+### 12 aprile — Fix OAuth Google Drive
+- Token Google OAuth scaduto — credenziale ricreata da zero
+- Aggiunto redirect URI ngrok in Google Cloud Console
+- Configurato `N8N_EDITOR_BASE_URL=http://localhost:5678` per bypassare blocco OAuth su ngrok
+
+### 22 aprile — Workflow sync-calendar (progetto CALENDAR)
+- Creato Workflow 3: Webhook → Split Out → Code → Google Calendar
+- Aggiornata query SQL `attivita_assistenza` con campi `BeginTime`, `EndTime`, `Tipo`
+- Modificata interfaccia `viceconti-attivita-v01.html`: checkbox, bottone Sincronizza, campi data/ora editabili con salvataggio PATCH su Service Layer
+- Risolto problema fuso orario: ora fine calcolata come stringa senza `toISOString()` (evita sottrazione UTC+2)
+- Aggiunto `vicecontisnc@gmail.com` come utente tester in Google Cloud `n8n-viceconti`
+- Abilitata Google Calendar API nel progetto
 
 ---
 
 ## Decisioni prese
 
-- **n8n installato sul PC Lauria** via npm globale — non Docker, non server SAP, non cloud
-- **Task Scheduler resta sul server SAP** — coesistenza pulita con n8n
-- **Google Drive personale** come destinazione file AudioPen — cartella "NOTE PERSONALI DA AUDIOPEN"
-- **Gruppo Telegram NOTE PERSONALI** come destinazione messaggi AudioPen
-- **ngrok con dominio statico** permanente per webhook
-- **Avvio automatico** via Task Scheduler con terminali visibili per monitoraggio
-- **GitHub repo pubblico `contesto-ai`** per file di contesto AI (rischio accettato)
-
----
-
-## Architettura del workflow in produzione
-
-```
-AudioPen (nota vocale)
-    ↓ (webhook, ritardo 4 min)
-ngrok (dominio statico → localhost:5678)
-    ↓
-n8n Webhook (POST)
-    ├→ Telegram: messaggio formattato → gruppo NOTE PERSONALI (senza attribuzione n8n)
-    └→ Code JS (genera .md + binary) → Google Drive Upload → cartella NOTE PERSONALI DA AUDIOPEN
-```
-
----
-
-## Approfondimenti concettuali prodotti nelle sessioni
-
-- **Ruolo di n8n vs Task Scheduler vs Cowork:** n8n per meccanica event-driven, Task Scheduler per cron sul server SAP, Cowork per compiti che richiedono giudizio
-- **Stato persistente e elaborazioni lunghe:** n8n orchestra ma non esegue lavoro pesante — script restano nell'engine layer
-- **Limiti di n8n v2 su filesystem:** restrizioni di sicurezza → preferire API cloud
-- **Pattern vicolo cieco AI:** sunk cost cognitivo nei modelli. Soluzione: triangolazione con altra AI
-- **n8n locale vs cloud vs DMZ:** analisi delle opzioni architetturali. PC locale è la scelta corretta per l'accesso al filesystem; il tunnel è il pattern standard per webhook da servizi cloud
-- **Coesistenza n8n e Task Scheduler:** n8n non sostituisce Task Scheduler sul server SAP — sono due strumenti complementari con territori diversi
-- **Documentazione per migrazione macchina:** best practice identificate — README per componente, export workflow JSON, file credenziali separato, script di installazione
+- **n8n sul PC Lauria** via npm globale — non Docker, non server SAP, non cloud
+- **Task Scheduler resta sul server SAP** — coesistenza pulita, territori distinti
+- **Google Drive personale** per note AudioPen — cartella NOTE PERSONALI DA AUDIOPEN
+- **Sincronizzazione Calendar semiautomatica** — selezione manuale delle attività, non trigger automatico
+- **Durata default eventi** +1 ora se `EndTime` non valorizzato in SAP
+- **Campo Oggetto (Subject) SAP** non editabile da interfaccia — SAP richiede intero, non testo libero
+- **Payload verso n8n include `ActivityCode`** — prerequisito per caso d'uso 2 (esito intervento)
 
 ---
 
 ## Prossimi passi
 
-1. **Local File Trigger** — implementare un workflow n8n con il nodo nativo che monitora una cartella e si attiva quando un file viene creato o modificato. Prossima funzionalità da implementare
-2. **Script PowerShell push GitHub** — automatizzare il caricamento dei riepiloghi su GitHub repo `contesto-ai`. Parametrizzabile per qualsiasi contesto futuro
-3. **Smistamento condizionale Telegram** — nodo Switch basato sui tag AudioPen per inviare a gruppi diversi
-4. **Export workflow JSON** — backup del workflow n8n per migrazione futura
-5. **README n8n** — documentazione completa per reinstallazione su nuova macchina
-6. **Rinominare il workflow** — da "My workflow" a "AudioPen → Telegram + Google Drive"
+1. **Caso d'uso 2 Calendar** — tecnico aggiorna descrizione evento → n8n intercetta modifica → scrive `U_Esito` in SAP. Prerequisito: salvare `EventId` ↔ `ActivityCode` via `extendedProperties` Calendar
+2. **Prevenire duplicati Calendar** — prima di Create, verificare se EventId già associato ad ActivityCode → fare Update invece di Create
+3. **Foto in Telegram** — aggiungere ramo Switch nel Workflow 2 per gestire `msg.photo` (file_id → getFile → download → Drive)
+4. **Local File Trigger** — workflow che monitora cartella locale e triggera script Python/PowerShell (watchdog come alternativa senza n8n)
+5. **Gmail Trigger** — per automazione registrazione bonifici in uscita (CCN → viceconti.amministrazione@gmail.com → n8n → API Anthropic → Service Layer) e altri casi d'uso email
+6. **PLAUD Note Pro** — integrazione da definire dopo verifica modalità export (webhook, API, email o app manuale)
+7. **Script PowerShell push GitHub** — automatizzare caricamento riepiloghi su repo contesto-ai
+8. **Export workflow JSON** — backup dei tre workflow per migrazione futura
+9. **Token GitHub** — scade 9 maggio 2026, rigenerare prima della scadenza
 
 ---
 
-## Blocchi o dipendenze
+## Blocchi e dipendenze
 
-- **Local File Trigger:** in n8n v2 potrebbe essere disabilitato di default (da verificare con variabile `NODES_EXCLUDE`)
-- **Push GitHub manuale:** funziona ma non scala. Script PowerShell da sviluppare
-- **Token Google OAuth:** app in "fase di test" su Google Cloud — funziona solo per utenti tester
-- **PC Lauria acceso:** n8n + ngrok dipendono dalla disponibilità della macchina (già operativa 24/7)
+- **Duplicati Calendar**: workflow attuale esegue sempre Create — evitare di cliccare Sincronizza più volte sulla stessa attività finché non è implementato il caso d'uso 2
+- **Ngrok URL variabile**: a ogni riavvio senza dominio statico l'URL cambia. Il dominio statico `karlene-apsidal-ruminantly.ngrok-free.dev` è configurato e permanente — verificare che start-ngrok.bat lo usi sempre
+- **Token Google OAuth**: app in "fase di test" su Google Cloud — funziona solo per utenti tester registrati
+- **VPN per accesso remoto Service Layer**: necessario per accesso futuro tecnici da tablet — da chiarire con Vincenzo Strazzullo
+- **Local File Trigger**: in n8n v2 potrebbe essere disabilitato (variabile `NODES_EXCLUDE` da verificare)
 
 ---
 
@@ -114,11 +129,14 @@ n8n Webhook (POST)
 | Node.js | v24.14.0 |
 | ngrok | v3.37.3, piano Free, regione EU, dominio statico |
 | ngrok domain | karlene-apsidal-ruminantly.ngrok-free.dev |
-| Webhook path | 26673b83-ea85-4edc-b4c4-2e091302c53a |
-| Telegram Bot | @Chiamate_di_servizio_bot |
+| Webhook AudioPen | 26673b83-ea85-4edc-b4c4-2e091302c53a |
+| Webhook Calendar | sync-calendar |
+| Telegram Bot | @Chiamate_di_servizio_bot (privacy mode disabilitata) |
 | Telegram gruppo | NOTE PERSONALI |
 | Google Cloud Project | n8n-viceconti |
-| Google Drive Folder ID | 131iWrhFJ6G_XbLnjuskRe-iIc0h_GvqS |
+| Google Drive Folder ID | 131iWrhFJ6G_XbLnjuskRe-iIc0h_GvqS (NOTE PERSONALI DA AUDIOPEN) |
+| Google Calendar ASSISTENZA | vicecontisnc@gmail.com |
+| Google Calendar CONSEGNE | iur82rio0kb0545l3h2puertqg@group.calendar.google.com |
 | Dropbox App | ID 5964611 (scope files.content.write abilitato) |
 | GitHub repo contesto AI | viceconti-hub/contesto-ai |
 | Sito contesto AI | https://viceconti-hub.github.io/contesto-ai/ |
@@ -133,6 +151,7 @@ Automatica via Task Scheduler. Se necessario avvio manuale:
 
 Terminale 1:
 ```powershell
+set WEBHOOK_URL=https://karlene-apsidal-ruminantly.ngrok-free.dev
 n8n start
 ```
 
@@ -143,4 +162,4 @@ ngrok http --domain=karlene-apsidal-ruminantly.ngrok-free.dev 5678
 
 ---
 
-*Sessioni del 4-5-6 aprile 2026 — da zero a workflow in produzione con avvio automatico*
+*Aggiornato al 22 aprile 2026 — consolida sessioni 4-6 aprile, 7 aprile, 12 aprile, 22 aprile 2026*
