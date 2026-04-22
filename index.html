@@ -192,6 +192,7 @@ const progetti = [
   { name: 'AI HUMAN LAB', file: 'AI HUMAN LAB RIEPILOGO.md' },
   { name: 'ASSISTENTI INTELLIGENTI', file: 'ASSISTENTI INTELLIGENTI RIEPILOGO.md' },
   { name: 'AUDIT INFRASTRUTTURA', file: 'AUDIT INFRASTRUTTURA RIEPILOGO.md' },
+  { name: 'CALENDAR (SAP → Google Calendar)', file: 'CALENDAR RIEPILOGO.md' },
   { name: 'DATABASE CENTRALIZZATO', file: 'DATABASE CENTRALIZZATO RIEPILOGO.md' },
   { name: 'MEMORIA E CONTESTO AI', file: 'MEMORIA E CONTESTO AI RIEPILOGO.md' },
   { name: 'n8n', file: 'n8n RIEPILOGO.md' },
@@ -254,9 +255,9 @@ async function loadDates() {
     const resp = await fetch(BASE_RAW + 'last_push.json?' + Date.now());
     if (!resp.ok) return;
     const data = await resp.json();
-    if (data.last_push) {
+    if (data.last_sync) {
       const el = document.getElementById('last-sync');
-      if (el) el.textContent = 'Ultimo sync: ' + data.last_push;
+      if (el) el.textContent = 'Ultimo sync: ' + data.last_sync;
     }
   } catch(e) {}
 }
