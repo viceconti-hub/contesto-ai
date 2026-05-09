@@ -33,7 +33,7 @@ body {
   margin: 0 auto;
 }
 header {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   padding-bottom: 24px;
   border-bottom: 2px solid var(--accent);
 }
@@ -49,6 +49,22 @@ h1 {
   color: var(--text-muted);
   font-weight: 400;
 }
+.json-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.json-link:hover { background: var(--accent); color: #fff; }
 .section-title {
   font-size: 13px;
   font-weight: 600;
@@ -127,7 +143,9 @@ h1 {
   margin-left: 8px;
   vertical-align: middle;
 }
-.tag.sintesi { background: #dce8d4; color: #3d6b2e; }
+.tag.sintesi   { background: #dce8d4; color: #3d6b2e; }
+.tag.riepilogo { background: #e3e8f0; color: #2f3f6e; }
+.tag.doc       { background: #f0ebe5; color: #6b5e4e; }
 .instructions {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -160,13 +178,15 @@ h1 {
 <header>
   <h1>Contesto AI — Viceconti</h1>
   <div class="subtitle">Riepiloghi operativi dei progetti — contesto per Claude, ChatGPT, Gemini</div>
-  <div class="subtitle" id="last-sync" style="margin-top: 6px; font-family: var(--mono); font-size: 12px;"></div>
+  <a class="json-link" href="https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/index.json" target="_blank">📋 Indice JSON per AI → index.json</a>
+  <div class="subtitle" id="last-sync" style="margin-top: 10px; font-family: var(--mono); font-size: 12px;"></div>
 </header>
 
 <div class="instructions">
   <strong>Come usare con le AI:</strong><br>
   <strong>Claude / ChatGPT:</strong> copia il link (📋) e incollalo in chat, oppure nel prompt di sistema: <code>Leggi il contesto da [URL]</code><br>
-  <strong>Gemini:</strong> usa il link GitHub (📄) — non legge URL raw
+  <strong>Gemini:</strong> usa il link GitHub (📄) — non legge URL raw<br>
+  <strong>Agenti AI:</strong> fetcha <code>index.json</code> per la lista strutturata delle risorse
 </div>
 
 <div class="section-title">Sintesi trasversale</div>
@@ -179,85 +199,69 @@ h1 {
 <ul class="file-list" id="operativi"></ul>
 
 <script>
-const REPO = 'viceconti-hub/contesto-ai';
-const BRANCH = 'main';
-const BASE_RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/`;
-const BASE_GITHUB = `https://github.com/${REPO}/blob/${BRANCH}/`;
+const REPO = "viceconti-hub/contesto-ai";
+const BRANCH = "main";
+const BASE_RAW = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/";
+const BASE_GITHUB = "https://github.com/" + REPO + "/blob/" + BRANCH + "/";
 
-const sintesi = [
-  { name: 'SINTESI ECOSISTEMA VICECONTI', file: 'SINTESI ECOSISTEMA VICECONTI RIEPILOGO.md', tag: 'SINTESI' },
-];
-
-const progetti = [
-  { name: 'AI HUMAN LAB', file: 'AI HUMAN LAB RIEPILOGO.md' },
-  { name: 'ASSISTENTI INTELLIGENTI', file: 'ASSISTENTI INTELLIGENTI RIEPILOGO.md' },
-  { name: 'AUDIT INFRASTRUTTURA', file: 'AUDIT INFRASTRUTTURA RIEPILOGO.md' },
-  { name: 'CALENDAR (SAP → Google Calendar)', file: 'CALENDAR RIEPILOGO.md' },
-  { name: 'DATABASE CENTRALIZZATO', file: 'DATABASE CENTRALIZZATO RIEPILOGO.md' },
-  { name: 'MEMORIA E CONTESTO AI', file: 'MEMORIA E CONTESTO AI RIEPILOGO.md' },
-  { name: 'n8n', file: 'n8n RIEPILOGO.md' },
-  { name: 'NUOVA STRATEGIA SETTEMBRE 2026', file: 'NUOVA STRATEGIA SETTEMBRE 2026 RIEPILOGO.md' },
-  { name: 'SAP ACADEMY', file: 'SAP ACADEMY RIEPILOGO.md' },
-  { name: 'SAP SERVICE LAYER', file: 'SAP SERVICE LAYER RIEPILOGO.md' },
-  { name: 'SITI WEB', file: 'SITI WEB RIEPILOGO.md' },
-  { name: 'STRUMENTI DI CATTURA VOCALE', file: 'STRUMENTI DI CATTURA VOCALE RIEPILOGO.md' },
-];
-
-const operativi = [
-  { name: 'ISTRUZIONI RIEPILOGO E NAMING', file: 'ISTRUZIONI RIEPILOGO E NAMING.md', desc: 'Standard operativo' },
-  { name: 'NAMING VICECONTI (Guida)', file: 'NAMING VICECONTI.md', desc: 'Convenzioni di naming ecosistema' },
-];
+const SINTESI = [{"name": "SINTESI ECOSISTEMA VICECONTI", "file": "SINTESI_ECOSISTEMA_VICECONTI_RIEPILOGO.md", "tipo": "SINTESI", "last_update_initial": "09/05/2026 06:31"}, {"name": "SINTESI ECOSISTEMA VICECONTI", "file": "SINTESI_ECOSISTEMA_VICECONTI_SINTESI.md", "tipo": "SINTESI", "last_update_initial": "09/05/2026 06:05"}];
+const PROGETTI = [{"name": "AI HUMAN LAB", "file": "AI_HUMAN_LAB_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "ASSISTENTI INTELLIGENTI", "file": "ASSISTENTI_INTELLIGENTI_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "AUDIT INFRASTRUTTURA", "file": "AUDIT_INFRASTRUTTURA_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "CALENDAR", "file": "CALENDAR_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "DATABASE CENTRALIZZATO", "file": "DATABASE_CENTRALIZZATO_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "FastAPI", "file": "FastAPI_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:31"}, {"name": "ISTRUZIONI_RIEPILOGO_E_NAMING", "file": "ISTRUZIONI_RIEPILOGO_E_NAMING.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:31"}, {"name": "MEMORIA E CONTESTO AI", "file": "MEMORIA_E_CONTESTO_AI_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "NUOVA STRATEGIA SETTEMBRE 2026", "file": "NUOVA_STRATEGIA_SETTEMBRE_2026_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "PIPELINE PRESTASHOP", "file": "PIPELINE_PRESTASHOP_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "SAP ACADEMY", "file": "SAP_ACADEMY_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "SAP SERVICE LAYER", "file": "SAP_SERVICE_LAYER_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:31"}, {"name": "SITI WEB", "file": "SITI_WEB_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "STRUMENTI DI CATTURA VOCALE", "file": "STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}, {"name": "n8n", "file": "n8n_RIEPILOGO.md", "tipo": "RIEPILOGO", "last_update_initial": "09/05/2026 06:05"}];
+const OPERATIVI = [{"name": "NAMING VICECONTI", "file": "NAMING_VICECONTI.md", "tipo": "DOC", "last_update_initial": "09/05/2026 06:05"}, {"name": "README_push_github", "file": "README_push_github.md", "tipo": "DOC", "last_update_initial": "09/05/2026 06:58"}, {"name": "REPORT_SINCRONIZZAZIONE_06_04_2026", "file": "REPORT_SINCRONIZZAZIONE_06_04_2026.md", "tipo": "DOC", "last_update_initial": "22/04/2026 17:46"}, {"name": "REPORT_SINCRONIZZAZIONE_09_05_2026", "file": "REPORT_SINCRONIZZAZIONE_09_05_2026.md", "tipo": "DOC", "last_update_initial": "09/05/2026 06:32"}, {"name": "REPORT_SINCRONIZZAZIONE_22_04_2026", "file": "REPORT_SINCRONIZZAZIONE_22_04_2026.md", "tipo": "DOC", "last_update_initial": "02/05/2026 18:00"}, {"name": "TEST py DELETE ME", "file": "TEST_py_DELETE_ME.md", "tipo": "DOC", "last_update_initial": "09/05/2026 06:58"}];
 
 function enc(f) { return encodeURIComponent(f); }
 
-function renderItem(item) {
-  const e = enc(item.file);
-  const tagHtml = item.tag ? ` <span class="tag sintesi">${item.tag}</span>` : '';
-  const descHtml = item.desc ? item.desc + ' — ' : '';
-  return `
-    <li class="file-item" data-file="${item.file}">
-      <div class="file-info">
-        <div class="file-name">${item.name}${tagHtml}</div>
-        <div class="file-date">${descHtml}<span class="last-update">...</span></div>
-      </div>
-      <div class="file-actions">
-        <a class="btn" href="${BASE_GITHUB}${e}" target="_blank">📄 GitHub</a>
-        <a class="btn" href="${BASE_RAW}${e}" target="_blank">📝 Raw</a>
-        <button class="btn" onclick="copyLink(this,'${e}')">📋 Copia link</button>
-      </div>
-    </li>`;
+function tagClass(tipo) {
+  if (tipo === "SINTESI")   return "sintesi";
+  if (tipo === "RIEPILOGO") return "riepilogo";
+  return "doc";
 }
 
-document.getElementById('sintesi').innerHTML = sintesi.map(renderItem).join('');
-document.getElementById('progetti').innerHTML = progetti.map(renderItem).join('');
-document.getElementById('operativi').innerHTML = operativi.map(renderItem).join('');
+function renderItem(item) {
+  const e = enc(item.file);
+  const tagHtml = ' <span class="tag ' + tagClass(item.tipo) + '">' + item.tipo + '</span>';
+  const initialDate = item.last_update_initial ? 'agg. ' + item.last_update_initial : '...';
+  return '' +
+    '<li class="file-item" data-file="' + item.file + '">' +
+      '<div class="file-info">' +
+        '<div class="file-name">' + item.name + tagHtml + '</div>' +
+        '<div class="file-date"><span class="last-update">' + initialDate + '</span></div>' +
+      '</div>' +
+      '<div class="file-actions">' +
+        '<a class="btn" href="' + BASE_GITHUB + e + '" target="_blank">📄 GitHub</a>' +
+        '<a class="btn" href="' + BASE_RAW + e + '" target="_blank">📝 Raw</a>' +
+        '<button class="btn" onclick="copyLink(this,\'' + e + '\')">📋 Copia link</button>' +
+      '</div>' +
+    '</li>';
+}
+
+document.getElementById('sintesi').innerHTML   = SINTESI.map(renderItem).join('');
+document.getElementById('progetti').innerHTML  = PROGETTI.map(renderItem).join('');
+document.getElementById('operativi').innerHTML = OPERATIVI.map(renderItem).join('');
 
 async function loadDates() {
-  // Data per-file dall'ultimo commit effettivo
-  const allFiles = [...sintesi, ...progetti, ...operativi];
+  const allFiles = [].concat(SINTESI, PROGETTI, OPERATIVI);
   for (const item of allFiles) {
     try {
-      const resp = await fetch(`https://api.github.com/repos/${REPO}/commits?path=${enc(item.file)}&sha=${BRANCH}&per_page=1`);
+      const resp = await fetch('https://api.github.com/repos/' + REPO + '/commits?path=' + enc(item.file) + '&sha=' + BRANCH + '&per_page=1');
       if (!resp.ok) continue;
       const commits = await resp.json();
       if (commits.length > 0) {
         const date = new Date(commits[0].commit.committer.date);
         const dateStr = date.toLocaleDateString('it-IT', { day:'2-digit', month:'2-digit', year:'numeric' });
         const timeStr = date.toLocaleTimeString('it-IT', { hour:'2-digit', minute:'2-digit' });
-        const el = document.querySelector(`[data-file="${item.file}"] .last-update`);
+        const el = document.querySelector('[data-file="' + item.file + '"] .last-update');
         if (el) el.textContent = 'agg. ' + dateStr + ' ' + timeStr;
       }
     } catch(e) {}
   }
-
-  // Data globale ultimo sync da last_push.json
   try {
     const resp = await fetch(BASE_RAW + 'last_push.json?' + Date.now());
     if (!resp.ok) return;
     const data = await resp.json();
-    if (data.last_sync) {
+    const stamp = data.last_push || data.last_sync;
+    if (stamp) {
       const el = document.getElementById('last-sync');
-      if (el) el.textContent = 'Ultimo sync: ' + data.last_sync;
+      if (el) el.textContent = 'Ultimo sync: ' + stamp;
     }
   } catch(e) {}
 }
@@ -265,11 +269,11 @@ async function loadDates() {
 loadDates();
 
 function copyLink(btn, filename) {
-  navigator.clipboard.writeText(BASE_RAW + filename).then(() => {
+  navigator.clipboard.writeText(BASE_RAW + filename).then(function() {
     const orig = btn.textContent;
     btn.textContent = '✓ Copiato';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
   });
 }
 </script>
