@@ -1,137 +1,104 @@
-# SAP Service Layer — Riepilogo del 22 aprile 2026
+# SAP Service Layer — Riepilogo del 5 maggio 2026
 
 ## Stato attuale
 
-Il Service Layer è operativo in produzione. L'interfaccia `viceconti-attivita-v01.html` è il punto centrale di sviluppo attivo: gestisce le Attività SAP in lettura/scrittura e ora è anche il punto di innesco del workflow SAP → Google Calendar, operativo dal 22/04/2026.
+L'interfaccia `viceconti-attivita-v01.html` è operativa in produzione con tutte le funzionalità di lettura/scrittura attività SAP e sincronizzazione Google Calendar. In questa sessione sono state aggiunte la colonna Ora di fine editabile, l'ordinamento composito, il bottone Esporta JSON, e risolto il bug critico sul salvataggio degli orari.
 
 ---
 
-## Architettura corrente
+## Lavoro svolto in questa sessione
 
-### Infrastruttura
-- **Service Layer:** `https://192.168.122.99:50000/b1s/v2/` — operativo
-- **Server:** SQLPRD0303 (192.168.122.99) — stabilizzato dopo riavvio del 03/04/2026 (RAM al 63%, era al 92%)
-- **Proxy locale:** `proxy.py` su localhost:8080 per sviluppo da PC esterno (gestisce certificato self-signed)
-- **Credenziali SAP:** manager / viceconti
+### Nuove funzionalità interfaccia
 
-### Interfaccia `viceconti-attivita-v01.html` — stato al 22/04/2026
+**Colonna "Ora di fine" (EndTime):**
+- Aggiunta colonna dopo "Ora di inizio", editabile inline con stesso pattern di StartTime
+- Il campo EndTime era già letto dal payload sync-calendar per il calcolo della durata, ma non era mai editabile dall'interfaccia — ora lo è
+- Il workflow n8n usa il valore reale di EndTime invece del calcolo fisso StartTime + 1h
 
-Funzionalità operative:
-- Lettura attività da Service Layer (OCLG) con filtro data e stato
-- Editing inline: `U_Esito`, `Notes`, `StartDate`, `StartTime` con salvataggio PATCH su SAP
-- Chiusura/riapertura attività via API (il client SAP blocca la riapertura, il Service Layer la esegue)
-- Creazione nuova attività con form completo incluso `PersonalFlag`
-- **Selezione multipla con checkbox + bottone "📅 Sincronizza su Calendar"** — invia le attività selezionate all'n8n webhook per creazione eventi Google Calendar
-- Badge "N selezionate", conferma visiva post-invio (bordo verde su righe), banner esito
+**Ordinamento composito:**
+- Ordinamento per data usa StartTime come secondo criterio (stessa direzione)
+- Ordinamento per ora usa StartDate come secondo criterio
+- Default al caricamento: StartDate DESC + StartTime DESC — attività più recenti in alto, a parità di data le ore più recenti prima
 
-### Campi editabili inline
-| Campo SAP | Comportamento |
-|---|---|
-| `U_Esito` | Dropdown, salvataggio PATCH immediato |
-| `Notes` | Testo libero, salvataggio su `onblur` |
-| `StartDate` | Data, salvataggio su `onblur` |
-| `StartTime` | Ora, salvataggio su `onblur` |
+**Bottone "⬇ Esporta JSON":**
+- Aggiunto in toolbar accanto a "Sincronizza su Calendar"
+- Scarica `attivita_aperte_YYYY-MM-DD.json` con tutte le attività caricate in memoria
+- Utile per test, analisi, e futuro utilizzo nella LLM Wiki aziendale
 
-**Nota:** campo `Subject` (Oggetto) non editabile — SAP richiede intero (codice lista), non testo libero.
+**Navigazione con Tab:**
+- I campi editabili (StartDate, StartTime, EndTime, Details, Notes, U_Esito) sono navigabili con Tab/Shift+Tab
+- `navigateEdit` attende il completamento del PATCH prima di aprire la cella successiva — necessario per propagare il nuovo DataVersion in allData
+
+### Bug critico risolto — salvataggio orari (StartTime / EndTime)
+
+**Causa radice:** differenza di tipo tra Service Layer v1 e v2.
+
+| Versione | Tipo campo | Formato |
+|---|---|---|
+| `/b1s/v1/` | `Edm.Int32` | Minuti dalla mezzanotte (es. `480`) |
+| `/b1s/v2/` | `Edm.String` | Stringa HH:MM (es. `"08:00"`) |
+
+Il codice inviava un intero (480) invece di una stringa ("08:00"). SAP rispondeva **204 No Content** (successo apparente) ma **non persisteva il valore** — il bug era completamente silente. Sintomo: "salvato" visivamente, ma al refresh dell'interfaccia tornava il valore precedente.
+
+**Fix applicati:**
+- Tutti i PATCH su StartTime/EndTime ora inviano stringa `"HH:MM"` invece di intero
+- `DataVersion` letto da `allData` al momento del PATCH, non dal closure dell'onclick (che lo congela al render e diventa stale dopo il primo salvataggio — causava 412 Precondition Failed al secondo edit consecutivo)
+- Input `type="text"` con formato HH:MM invece di `type="time"` — il widget nativo del browser si comportava male dentro `table-layout: fixed`
+- Parser `parseHHMM(val).hhmm` aggiunto come helper per normalizzare i formati in ingresso
+
+**Perché il bug è stato difficile da trovare:**
+La distinzione Edm.Int32 (v1) → Edm.String (v2) per i campi tempo nelle Activities non è documentata in modo evidente. SAP accettava l'intero senza errore ma non lo persisteva. Solo ispezionando la metadata reale del Service Layer v2 il problema è diventato visibile.
+
+**Principio generale da ricordare:** quando un PATCH restituisce 204 ma il valore non persiste al refresh, il problema è quasi certamente nel tipo del dato inviato, non nel flusso di chiamata.
 
 ---
 
-## Workflow SAP → Google Calendar (n8n)
+## Conoscenza tecnica critica — Service Layer v2
 
-### Architettura
+**ATTENZIONE — differenza v1/v2 sui campi tempo:**
 ```
-viceconti-attivita-v01.html
-→ selezione checkbox attività
-→ POST webhook n8n (sync-calendar)
-→ Split Out → Code → Google Calendar Create Event
+Activities.StartTime, EndTime
+  v1: Edm.Int32 — minuti dalla mezzanotte (es. 480 = 08:00)
+  v2: Edm.String — formato "HH:MM" (es. "08:00")
 
-Routing per tipo:
-• ActivityType = ASSISTENZA → calendario ASSISTENZA TECNICA (vicecontisnc@gmail.com)
-• ActivityType = CONSEGNE → calendario CONSEGNE (iur82rio0kb0545l3h2puertqg@group.calendar.google.com)
-```
-
-### Mapping campi SAP → Calendar
-| Campo Calendar | Fonte SAP |
-|---|---|
-| Titolo | `CardName + Details` |
-| Data/ora inizio | `StartDate + StartTime` |
-| Data/ora fine | `EndTime` se presente, altrimenti `StartTime + 1h` |
-| Location | `City` |
-| Descrizione | `TecName + ActivityType + N. Attività (ActivityCode)` |
-
-### Configurazione n8n
-- **URL webhook:** `https://karlene-apsidal-ruminantly.ngrok-free.dev/webhook/sync-calendar`
-- **Fuso orario n8n:** `Europe/Rome`
-- **Ora fine:** calcolata come stringa per evitare conversione UTC che sottraeva 2 ore
-- **Google OAuth:** `vicecontisnc@gmail.com`, progetto Google Cloud `n8n-viceconti`
-
-### Variabile nell'HTML
-```javascript
-const N8N_WEBHOOK_URL = 'https://karlene-apsidal-ruminantly.ngrok-free.dev/webhook/sync-calendar';
+Mandare un intero su v2 → 204 No Content ma valore NON persistito.
+Mandare sempre stringa "HH:MM".
 ```
 
----
+**DataVersion in PATCH:**
+Leggere DataVersion sempre da `allData` al momento del PATCH, mai dal closure dell'onclick — l'onclick lo congela al render e diventa stale dopo il primo PATCH (causa 412 Precondition Failed al secondo edit consecutivo).
 
-## Prossimi sviluppi previsti (priorità)
-
-### Caso d'uso 2 — Calendar → SAP (U_Esito)
-Il tecnico aggiorna la descrizione dell'evento Google Calendar a fine intervento → n8n intercetta la modifica → scrive il testo in `U_Esito` dell'Attività SAP corrispondente.
-
-**Prerequisito:** salvare `EventId` ↔ `ActivityCode` al momento della creazione evento. Meccanismo: `extendedProperties` di Google Calendar per memorizzare l'`ActivityCode`, oppure log su file/database.
-
-### Prevenzione duplicati
-Il workflow attuale esegue sempre `Create`. Implementare logica: prima di creare, verificare se esiste già un evento con `ActivityCode` nelle `extendedProperties`. Se esiste → fare `Update` invece di `Create`.
-
-### Task Scheduler per `crea_moduli_vuoti.py`
-Script operativo ma non ancora schedulato sul PC Lauria — da configurare con Task Scheduler.
+**PATCH singolo campo:**
+Non serve PATCH bidirezionale StartTime+EndTime. Mandare solo il campo modificato è corretto e sufficiente.
 
 ---
 
-## Conoscenza tecnica consolidata Service Layer
+## Prossimi passi
 
-| Aspetto | Dettaglio |
-|---|---|
-| Autenticazione | Cookie `B1SESSION` via `POST /Login`, gestito automaticamente da `requests.Session()` |
-| Riapertura attività | `PATCH /Activities(code)` con `Closed: "tNO"` — bypass del blocco client SAP |
-| Chiusura attività | `PATCH /Activities(code)` con `Closed: "tYES"` |
-| Editing parziale | `PATCH` con solo i campi da modificare — SAP aggiorna solo quelli |
-| Fatture servizi | `POST /PurchaseInvoices` con `DocType: "dDocument_Service"` + `VatDate` obbligatorio |
-| Storno fattura | `POST /PurchaseInvoices(DocEntry)/Cancel` — unica operazione disponibile |
-| DELETE fattura | Bloccato anche via API (errore -5006) |
-| Bozze/Drafts | `POST /Drafts` con `DocObjectCode` — comportamento anomalo non risolto, registra invece di parcheggiare |
-| DocEntry vs DocNum | Service Layer usa sempre DocEntry (chiave interna DB), non DocNum (numero visibile) |
+1. **Caso d'uso 2 — Calendar → SAP** — il tecnico aggiorna la descrizione dell'evento Google Calendar a fine intervento → n8n intercetta la modifica → scrive il testo in `U_Esito` dell'Attività SAP corrispondente. Prerequisito: salvare `EventId` ↔ `ActivityCode` via `extendedProperties` Calendar al momento della creazione evento.
+2. **Prevenire duplicati Calendar** — prima di creare un evento, verificare se esiste già un `EventId` associato all'`ActivityCode`. Se esiste: `Update` invece di `Create`.
+3. **Rigenerare token GitHub** — scaduto il 9 maggio 2026. Priorità immediata.
+4. **Ngrok URL statico** — l'URL cambia a ogni riavvio. Valutare ngrok plan a pagamento o alternativa.
+
+---
+
+## Blocchi o dipendenze
+
+- **Ngrok URL variabile**: URL attuale `https://karlene-apsidal-ruminantly.ngrok-free.dev` — aggiornare `N8N_WEBHOOK_URL` nell'HTML a ogni riavvio ngrok.
+- **Duplicati Calendar**: workflow attuale esegue sempre `Create` — evitare di cliccare Sincronizza più volte sulla stessa attività finché non è implementato il caso d'uso 2.
+- **VPN per tecnici**: esposizione Service Layer senza VPN da discutere con Vincenzo Strazzullo.
 
 ---
 
 ## Domande aperte per Vincenzo Strazzullo
-(email inviata 11/04/2026, risposta in attesa)
 
-1. Payload corretto per documento parcheggiato via `/Drafts`
-2. B1iF — installato? Esperienza di configurazione?
-3. Tool PDF SAP — funzionamento, costi, cartella destinazione configurabile
-4. Esposizione Service Layer senza VPN per tablet tecnici
+(risposta ricevuta il 24/04/2026)
 
----
-
-## Credenziali e scadenze urgenti
-
-| Credenziale | Scadenza | Priorità |
-|---|---|---|
-| **Token GitHub** | **9 maggio 2026** | **🔴 Rigenerare subito** |
-| Google OAuth n8n | 2027 | — |
-| Token Dropbox OAuth2 | Nessuna | — |
+1. **Documento parcheggiato via `/Drafts`** — Vincenzo suggerisce `"DocObjectCode": "17"` (codice numerico) invece della stringa `"oPurchaseInvoices"`. Da testare in Postman su TEST_Viceconti.
+2. **B1iF** — può verificare se installato, non ha competenza specifica sulla configurazione.
+3. **Tool PDF SAP** — cartella di destinazione configurabile (Dropbox fattibile). Costi da definire. Funzione principale: stampa automatica PDF o invio email al cliente.
+4. **Formato strutturato documenti** — non esiste nativo. Propone framework intermedio REST (tipo+numero → JSON). Valutabile come alternativa al query SQL diretto, ma realizzabile anche internamente con Claude Code.
 
 ---
 
-## File e path rilevanti
-
-| File | Path | Stato |
-|---|---|---|
-| `viceconti-attivita-v01.html` | GitHub Pages viceconti-hub/portale | Produzione |
-| `registra_fattura.py` | C:\Viceconti\viceconti-hub | Operativo (incompleto) |
-| `Indice_Fornitori_SAP.xlsx` | C:\Users\PC\Dropbox\HUB DOCUMENTALE\ACQUISTI\FATTURE DA FORNITORE | 27 fornitori mappati |
-| `proxy.py` | localhost:8080 | Dev da PC esterno |
-
----
-
-*Sessione del 22 aprile 2026 — Viceconti s.n.c.*
+*Sessione del 5 maggio 2026 — Viceconti s.n.c.*
