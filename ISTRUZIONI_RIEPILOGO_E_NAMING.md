@@ -82,16 +82,9 @@ Ogni file RIEPILOGO deve contenere almeno queste sezioni:
 
 ## Blocchi o dipendenze
 [Eventuali ostacoli, attese da terzi, prerequisiti non ancora risolti]
-
-## Valutazioni di possibile valore strategico
-[Ragionamenti, distinzioni, principi o intuizioni emersi durante la sessione 
-che potrebbero meritare considerazione nella Sintesi Ecosistema, anche se non 
-direttamente collegati al lavoro tecnico/operativo del progetto. Sezione 
-introdotta per evitare che valutazioni strategiche maturate nel lavoro 
-analitico si disperdano al ritorno verso la chat principale.]
 ```
 
-Le sezioni "Decisioni prese", "Blocchi o dipendenze" e "Valutazioni di possibile valore strategico" possono essere omesse se non applicabili alla sessione.
+Le sezioni "Decisioni prese" e "Blocchi o dipendenze" possono essere omesse se non applicabili alla sessione.
 
 ---
 
@@ -129,8 +122,6 @@ Per ogni cartella in PROGETTI CLAUDE (esclusa SINTESI_RIEPILOGHI_COWORK stessa):
 
 Aggiornato al 17/03/2026. Usare come riferimento per la sincronizzazione.
 
-> **Nota:** questa sezione è da aggiornare con la nuova struttura progetti su progressione numerica 100-400s definita il 03/05/2026. Aggiornamento previsto a cura di Cowork prima del prossimo ciclo di sincronizzazione.
-
 | Cartella | Ha riepilogo conforme | Note |
 |---|---|---|
 | AI AUTOMATION NUOVE IDEE | No | Da creare |
@@ -154,11 +145,3 @@ Aggiornato al 17/03/2026. Usare come riferimento per la sincronizzazione.
 | SITI WEB | Sì (da rinominare) | File attuale: HUB_DOCUMENTALE_Riepilogo_Operativo_04_03_2026.md |
 | STRUMENTI DI CATTURA VOCALE | Sì (da rinominare) | File attuale: STRUMENTI DI CATTURA VOCALE RIEPILOGO OPERATIVO 15_03_2026.txt |
 | TELEGRAM | — | Cartella vuota |
-
----
-
-## Storia revisioni
-
-| Data | Modifica |
-|------|----------|
-| 03/05/2026 | Aggiunta sezione "Valutazioni di possibile valore strategico" alla struttura interna del riepilogo (sezione 3). Inserita nota in sezione 6 sull'aggiornamento mappa progetti pendente. |
