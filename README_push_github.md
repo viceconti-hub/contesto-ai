@@ -116,6 +116,20 @@ Il display name è ricavato dal filename rimuovendo l'estensione `.md` e
 l'eventuale suffisso ` RIEPILOGO` o ` SINTESI`. Non sono previsti override
 manuali nella v2.0.
 
+**Eccezioni di classificazione (`DOC_EXCEPTIONS`):** alcuni file con
+keyword nel nome devono essere classificati come DOC anche se contengono
+`RIEPILOGO`/`SINTESI`. Attualmente:
+
+- `ISTRUZIONI_RIEPILOGO_E_NAMING.md`
+- `README_push_github.md`
+
+**Filtro REPORT log:** i file con pattern
+`REPORT_SINCRONIZZAZIONE_GG_MM_AAAA.md` sono log di esecuzione, non
+riepiloghi permanenti. Lo script tiene solo quello con la data più recente
+nel nome; gli altri vengono loggati come `[SKIP-REPORT]` ed esclusi dal
+push. Non essendo più nella lista dei file attesi, vengono rimossi dal
+repo dalla normale sync-delete.
+
 L'header contiene un link visibile a `index.json` per i lettori AI.
 
 ### Generazione `index.json`
@@ -160,3 +174,9 @@ RIEPILOGO:
   dai filename. Aggiunto `index.json` ai file protetti. `last_push.json` ora
   contiene sia `last_push` sia `last_sync` (compatibilità).
   `push_github.ps1` v1.1 resta in cartella come backup.
+- **v2.1** (09/05/2026, Python): aggiunto `DOC_EXCEPTIONS`
+  (`ISTRUZIONI_RIEPILOGO_E_NAMING.md`, `README_push_github.md`) per forzare
+  la categoria DOC a prescindere dalle keyword nel nome. Aggiunto filtro
+  REPORT: dei file `REPORT_SINCRONIZZAZIONE_GG_MM_AAAA.md` viene tenuto solo
+  il più recente; gli altri sono esclusi dal push (log `[SKIP-REPORT]`) e
+  rimossi dal repo via sync-delete.
