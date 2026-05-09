@@ -1,7 +1,7 @@
 {
   "meta": {
     "repo": "viceconti-hub/contesto-ai",
-    "ultimo_aggiornamento": "2026-05-09T06:58:14Z",
+    "ultimo_aggiornamento": "2026-05-09T06:58:10Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw.",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/"
   },
@@ -185,14 +185,6 @@
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/REPORT_SINCRONIZZAZIONE_22_04_2026.md",
       "tipo": "DOC",
       "ultimo_aggiornamento": "2026-05-02"
-    },
-    {
-      "nome": "TEST py DELETE ME",
-      "file": "TEST_py_DELETE_ME.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/TEST_py_DELETE_ME.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/TEST_py_DELETE_ME.md",
-      "tipo": "DOC",
-      "ultimo_aggiornamento": "2026-05-09"
     }
   ]
 }
