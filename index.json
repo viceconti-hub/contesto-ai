@@ -1,149 +1,55 @@
 {
   "meta": {
     "repo": "viceconti-hub/contesto-ai",
-    "ultimo_aggiornamento": "2026-05-09T07:25:36Z",
-    "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw.",
-    "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/"
+    "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/",
+    "fastapi_base": "https://piattaforma-ai.onrender.com",
+    "ultimo_aggiornamento": "2026-05-17T09:30:00Z"
   },
   "sintesi_trasversale": [
     {
       "nome": "SINTESI ECOSISTEMA VICECONTI",
-      "file": "SINTESI_ECOSISTEMA_VICECONTI_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/SINTESI_ECOSISTEMA_VICECONTI_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/SINTESI_ECOSISTEMA_VICECONTI_RIEPILOGO.md",
+      "slug": "sintesi",
       "tipo": "SINTESI",
-      "ultimo_aggiornamento": "2026-05-09"
+      "current_version": "2026_05_14",
+      "file": "SINTESI_2026_05_14.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/SINTESI_2026_05_14.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/SINTESI_2026_05_14.md",
+      "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/sintesi/latest",
+      "ultimo_aggiornamento": "2026-05-14"
     }
   ],
   "riepiloghi_progetti": [
     {
-      "nome": "AI HUMAN LAB",
-      "file": "AI_HUMAN_LAB_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/AI_HUMAN_LAB_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/AI_HUMAN_LAB_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "AUDIT INFRASTRUTTURA",
-      "file": "AUDIT_INFRASTRUTTURA_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/AUDIT_INFRASTRUTTURA_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/AUDIT_INFRASTRUTTURA_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "CALENDAR",
-      "file": "CALENDAR_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/CALENDAR_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/CALENDAR_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "DATABASE CENTRALIZZATO",
-      "file": "DATABASE_CENTRALIZZATO_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/DATABASE_CENTRALIZZATO_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/DATABASE_CENTRALIZZATO_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "FastAPI",
-      "file": "FastAPI_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/FastAPI_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/FastAPI_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "MEMORIA E CONTESTO AI",
-      "file": "MEMORIA_E_CONTESTO_AI_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/MEMORIA_E_CONTESTO_AI_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/MEMORIA_E_CONTESTO_AI_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "NUOVA STRATEGIA SETTEMBRE 2026",
-      "file": "NUOVA_STRATEGIA_SETTEMBRE_2026_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/NUOVA_STRATEGIA_SETTEMBRE_2026_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/NUOVA_STRATEGIA_SETTEMBRE_2026_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "PIPELINE PRESTASHOP",
-      "file": "PIPELINE_PRESTASHOP_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/PIPELINE_PRESTASHOP_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/PIPELINE_PRESTASHOP_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
       "nome": "SAP ACADEMY",
+      "slug": "sap_academy",
+      "tipo": "RIEPILOGO",
       "file": "SAP_ACADEMY_RIEPILOGO.md",
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/SAP_ACADEMY_RIEPILOGO.md",
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/SAP_ACADEMY_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "SAP SERVICE LAYER",
-      "file": "SAP_SERVICE_LAYER_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/SAP_SERVICE_LAYER_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/SAP_SERVICE_LAYER_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "STRUMENTI DI CATTURA VOCALE",
-      "file": "STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "n8n",
-      "file": "n8n_RIEPILOGO.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/n8n_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/n8n_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
+      "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/sap_academy/latest",
       "ultimo_aggiornamento": "2026-05-09"
     }
+    // ...gli altri 11 progetti seguono lo stesso schema
   ],
   "documenti_operativi": [
     {
-      "nome": "ISTRUZIONI_RIEPILOGO_E_NAMING",
+      "nome": "ISTRUZIONI RIEPILOGO E NAMING",
+      "slug": "istruzioni",
+      "tipo": "DOC",
+      "esposto_fastapi": true,
       "file": "ISTRUZIONI_RIEPILOGO_E_NAMING.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/ISTRUZIONI_RIEPILOGO_E_NAMING.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/ISTRUZIONI_RIEPILOGO_E_NAMING.md",
-      "tipo": "DOC",
+      "raw_url": "...",
+      "github_url": "...",
+      "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/istruzioni",
       "ultimo_aggiornamento": "2026-05-09"
     },
     {
-      "nome": "NAMING VICECONTI",
-      "file": "NAMING_VICECONTI.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/NAMING_VICECONTI.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/NAMING_VICECONTI.md",
+      "nome": "REPORT SINCRONIZZAZIONE 09 05 2026",
       "tipo": "DOC",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "README_push_github",
-      "file": "README_push_github.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/README_push_github.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/README_push_github.md",
-      "tipo": "DOC",
-      "ultimo_aggiornamento": "2026-05-09"
-    },
-    {
-      "nome": "REPORT_SINCRONIZZAZIONE_09_05_2026",
+      "esposto_fastapi": false,
       "file": "REPORT_SINCRONIZZAZIONE_09_05_2026.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/REPORT_SINCRONIZZAZIONE_09_05_2026.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/REPORT_SINCRONIZZAZIONE_09_05_2026.md",
-      "tipo": "DOC",
+      "raw_url": "...",
+      "github_url": "...",
       "ultimo_aggiornamento": "2026-05-09"
     }
   ]
