@@ -122,7 +122,7 @@ Per ogni cartella in PROGETTI CLAUDE (esclusa 510 stessa):
 
 ## 6. Cartella di lavoro del sistema sync (520)
 
-La cartella `520.SINTESI RIEPILOGHI COWORK CARTELLA DI LAVORO` è la **cartella di lavoro/master** del sistema di sincronizzazione stesso. Si comporta come una cartella di progetto, con alcune specificità.
+La cartella `520.COWORK SYNC OFFICINA` è la **cartella di lavoro/master** del sistema di sincronizzazione stesso. Si comporta come una cartella di progetto, con alcune specificità.
 
 ### Contenuto e regole di propagazione verso 510
 
@@ -184,8 +184,9 @@ Aggiornato al 17/05/2026 sulla base della Mappatura Progetti Claude ↔ Cartelle
 
 | Codice | Cartella | Funzione |
 |---|---|---|
+| 005 | ORGANIZZAZIONE PROGETTI CLAUDE | Workspace delle sessioni Cowork di organizzazione — mappatura Progetti/Cartelle, file PUSH_ISTRUZIONI delle wave, output operativi delle revisioni periodiche |
 | 510 | SINTESI_RIEPILOGHI_COWORK | Cartella centralizzata destinazione sync (vedi Sezione 5) |
-| 520 | SINTESI RIEPILOGHI COWORK CARTELLA DI LAVORO | Cartella di lavoro/master del sistema sync (vedi Sezione 6) |
+| 520 | COWORK SYNC OFFICINA | Cartella di lavoro/master del sistema sync (vedi Sezione 6) |
 | 999 | ARCHIVIO | Archivio storico, escluso dalla sincronizzazione |
 
 ### Documenti operativi pubblicati (non riepiloghi di progetto)
