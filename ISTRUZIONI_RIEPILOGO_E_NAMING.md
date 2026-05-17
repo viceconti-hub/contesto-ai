@@ -112,13 +112,40 @@ Per ogni cartella in PROGETTI CLAUDE (esclusa SINTESI_RIEPILOGHI_COWORK stessa):
 4. Se la cartella è vuota, segnala nel report come "cartella vuota"
 
 ### Comportamento della copia
-- Il file viene copiato con il nome originale (invariato)
-- Se nella destinazione esiste già un file dello stesso progetto con data precedente, il vecchio viene sostituito dal nuovo
-- Ad ogni esecuzione viene generato un file `REPORT_SINCRONIZZAZIONE_[GG_MM_AAAA].md` che documenta l'esito
+- Il file viene copiato in `510.SINTESI_RIEPILOGHI_COWORK` con il nome SENZA la data: `[NOME PROGETTO] RIEPILOGO.md`
+- Se nella destinazione esiste già un file dello stesso progetto, il vecchio viene sostituito dal nuovo
+- Ad ogni esecuzione viene generato un file `REPORT_SINCRONIZZAZIONE_[GG_MM_AAAA].md` (vedi sezione 6 per la gestione)
 
 ---
 
-## 6. Elenco cartelle progetto attive
+## 6. Cartella di lavoro del sistema sync (520)
+
+La cartella `520.SINTESI RIEPILOGHI COWORK CARTELLA DI LAVORO` è la **cartella di lavoro/master** del sistema di sincronizzazione stesso. Si comporta come una cartella di progetto, con alcune specificità.
+
+### Contenuto e regole di propagazione verso 510
+
+| File / pattern | Propagazione in 510 | Note |
+|---|---|---|
+| `ISTRUZIONI RIEPILOGO E NAMING.md` | Sì, come `ISTRUZIONI_RIEPILOGO_E_NAMING.md` (invariato nel contenuto) | Documento operativo master |
+| `REPORT_SINCRONIZZAZIONE_GG_MM_AAAA.md` (più recente) | Sì, **mantenendo la data nel nome** | Solo l'ultimo viene pubblicato; i precedenti restano qui come archivio |
+| `BLOCCHI_PROMPT_PROGETTI.md` | No, privato in 520 | Documento di lavoro |
+| `TODO_INTERVENTI_MANUALI.md` | No, privato in 520 | Documento di lavoro |
+| `00x.REPORT_SINCRONIZZAZIONE_*.md` (con prefisso numerico) | No, archivio storico | File con prefisso numerico = archivio, non propagati |
+
+### Generazione del REPORT_SINCRONIZZAZIONE
+
+- Il task schedulato `sync-riepiloghi-push-github` **scrive il nuovo REPORT direttamente in 520** (la fonte), non in 510.
+- Subito dopo, lo stesso task **propaga il REPORT più recente in 510** mantenendo la data nel nome.
+- Il REPORT precedente in 510 (con data diversa) viene rimosso al passo di sync delete.
+
+### Differenza chiave rispetto agli altri progetti
+
+Per i riepiloghi di progetto: il file in SINTESI 510 ha SEMPRE lo stesso nome (`[NOME PROGETTO] RIEPILOGO.md`, senza data) e il contenuto cambia ad ogni sync.
+Per i REPORT di sincronizzazione: ogni esecuzione genera un nuovo nome con data, e in 510 si mantiene **solo l'ultimo**.
+
+---
+
+## 7. Elenco cartelle progetto attive
 
 Aggiornato al 17/03/2026. Usare come riferimento per la sincronizzazione.
 
