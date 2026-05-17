@@ -3,7 +3,7 @@
     "repo": "viceconti-hub/contesto-ai",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/",
     "fastapi_base": "https://piattaforma-ai.onrender.com",
-    "ultimo_aggiornamento": "2026-05-17T08:25:00Z",
+    "ultimo_aggiornamento": "2026-05-17T08:34:21Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw."
   },
   "sintesi_trasversale": [
@@ -15,7 +15,7 @@
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/SINTESI_ECOSISTEMA_VICECONTI_RIEPILOGO.md",
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/SINTESI_ECOSISTEMA_VICECONTI_RIEPILOGO.md",
       "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/sintesi/latest",
-      "ultimo_aggiornamento": "2026-05-10"
+      "ultimo_aggiornamento": "2026-05-14"
     }
   ],
   "riepiloghi_progetti": [
@@ -136,4 +136,53 @@
       "tipo": "RIEPILOGO",
       "file": "n8n_RIEPILOGO.md",
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/n8n_RIEPILOGO.md",
-      "github_url": "https://github.com/viceconti-
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/n8n_RIEPILOGO.md",
+      "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/n8n/latest",
+      "ultimo_aggiornamento": "2026-04-22"
+    }
+  ],
+  "documenti_operativi": [
+    {
+      "nome": "ISTRUZIONI RIEPILOGO E NAMING",
+      "slug": "istruzioni",
+      "tipo": "DOC",
+      "esposto_fastapi": true,
+      "file": "ISTRUZIONI_RIEPILOGO_E_NAMING.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/ISTRUZIONI_RIEPILOGO_E_NAMING.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/ISTRUZIONI_RIEPILOGO_E_NAMING.md",
+      "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/istruzioni",
+      "ultimo_aggiornamento": "2026-05-17"
+    },
+    {
+      "nome": "NAMING VICECONTI",
+      "slug": "naming_viceconti",
+      "tipo": "DOC",
+      "esposto_fastapi": true,
+      "file": "NAMING_VICECONTI.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/NAMING_VICECONTI.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/NAMING_VICECONTI.md",
+      "fastapi_url": "https://piattaforma-ai.onrender.com/contesto/naming_viceconti",
+      "ultimo_aggiornamento": "2026-02-25"
+    },
+    {
+      "nome": "README PUSH GITHUB",
+      "slug": "readme_push_github",
+      "tipo": "DOC",
+      "esposto_fastapi": false,
+      "file": "README_push_github.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/README_push_github.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/README_push_github.md",
+      "ultimo_aggiornamento": "2026-05-09"
+    },
+    {
+      "nome": "REPORT SINCRONIZZAZIONE 17 05 2026",
+      "slug": "report_sincronizzazione_17_05_2026",
+      "tipo": "DOC",
+      "esposto_fastapi": false,
+      "file": "REPORT_SINCRONIZZAZIONE_17_05_2026.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/REPORT_SINCRONIZZAZIONE_17_05_2026.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/REPORT_SINCRONIZZAZIONE_17_05_2026.md",
+      "ultimo_aggiornamento": "2026-05-17"
+    }
+  ]
+}
