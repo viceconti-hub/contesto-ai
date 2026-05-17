@@ -1,7 +1,7 @@
 {
   "meta": {
     "repo": "viceconti-hub/contesto-ai",
-    "ultimo_aggiornamento": "2026-05-17T16:12:54Z",
+    "ultimo_aggiornamento": "2026-05-17T17:26:42Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw.",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/"
   },
@@ -53,14 +53,6 @@
       "file": "FastAPI_RIEPILOGO.md",
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/FastAPI_RIEPILOGO.md",
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/FastAPI_RIEPILOGO.md",
-      "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-17"
-    },
-    {
-      "nome": "ISTRUZIONI RIEPILOGO E NAMING",
-      "file": "ISTRUZIONI_RIEPILOGO_E_NAMING.md",
-      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/ISTRUZIONI_RIEPILOGO_E_NAMING.md",
-      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/ISTRUZIONI_RIEPILOGO_E_NAMING.md",
       "tipo": "RIEPILOGO",
       "ultimo_aggiornamento": "2026-05-17"
     },
