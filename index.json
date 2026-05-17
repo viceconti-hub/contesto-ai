@@ -1,7 +1,7 @@
 {
   "meta": {
     "repo": "viceconti-hub/contesto-ai",
-    "ultimo_aggiornamento": "2026-05-17T17:39:40Z",
+    "ultimo_aggiornamento": "2026-05-17T17:59:43Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw.",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/"
   },
@@ -49,10 +49,26 @@
       "ultimo_aggiornamento": "2026-05-09"
     },
     {
+      "nome": "ECOSISTEMA TEAM SYSTEM",
+      "file": "ECOSISTEMA_TEAM_SYSTEM_RIEPILOGO.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/ECOSISTEMA_TEAM_SYSTEM_RIEPILOGO.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/ECOSISTEMA_TEAM_SYSTEM_RIEPILOGO.md",
+      "tipo": "RIEPILOGO",
+      "ultimo_aggiornamento": "2026-05-17"
+    },
+    {
       "nome": "FastAPI",
       "file": "FastAPI_RIEPILOGO.md",
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/FastAPI_RIEPILOGO.md",
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/FastAPI_RIEPILOGO.md",
+      "tipo": "RIEPILOGO",
+      "ultimo_aggiornamento": "2026-05-17"
+    },
+    {
+      "nome": "HUB DOCUMENTALE",
+      "file": "HUB_DOCUMENTALE_RIEPILOGO.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/HUB_DOCUMENTALE_RIEPILOGO.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/HUB_DOCUMENTALE_RIEPILOGO.md",
       "tipo": "RIEPILOGO",
       "ultimo_aggiornamento": "2026-05-17"
     },
@@ -101,6 +117,14 @@
       "file": "STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md",
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md",
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/STRUMENTI_DI_CATTURA_VOCALE_RIEPILOGO.md",
+      "tipo": "RIEPILOGO",
+      "ultimo_aggiornamento": "2026-05-17"
+    },
+    {
+      "nome": "VICECONTI HUB",
+      "file": "VICECONTI_HUB_RIEPILOGO.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/VICECONTI_HUB_RIEPILOGO.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/VICECONTI_HUB_RIEPILOGO.md",
       "tipo": "RIEPILOGO",
       "ultimo_aggiornamento": "2026-05-17"
     },
