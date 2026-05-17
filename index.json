@@ -3,7 +3,7 @@
     "repo": "viceconti-hub/contesto-ai",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/",
     "fastapi_base": "https://piattaforma-ai.onrender.com",
-    "ultimo_aggiornamento": "2026-05-17T08:18:41Z",
+    "ultimo_aggiornamento": "2026-05-17T08:25:00Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw."
   },
   "sintesi_trasversale": [
