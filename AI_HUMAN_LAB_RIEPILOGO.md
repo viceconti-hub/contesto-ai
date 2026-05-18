@@ -1,275 +1,429 @@
-# AI Human Lab — Riepilogo del 10 maggio 2026
+# AI Human Lab — Riepilogo del 18 maggio 2026
 
 ## Stato attuale
 
-Progetto attivo — circa 130 giorni dall'inizio. La sessione dell'8-10 maggio è stata di rara densità: portate al Lab osservazioni emerse nei progetti Claude paralleli (FastAPI, Strumenti cattura vocale, Sintesi/custode, Assistente amministrativa) e materiali da articoli e interlocuzioni recenti. Il Lab ha incorporato pressione critica sostanziale e prodotto un'espansione significativa del framework concettuale: consolidamento di un nuovo movimento metodologico (decostruzione) e di una serie di distinzioni operative.
+Progetto attivo — circa 138 giorni dall'inizio. La sessione 15-18 maggio è stata di densità eccezionale: ha attraversato pressione epistemica filosofica (relativismo, incontrovertibilità, community), articolazione di nuove categorie strutturali del framework (lettura sincrona/diacronica, terza asimmetria fenomenologica), e una **saldatura esplicita tra il lavoro di architettura IT e la tematica della memoria** che era rimasta su piani paralleli.
 
-Il contesto operativo è sintetizzato nella SINTESI ECOSISTEMA VICECONTI 03/05/2026 — la nuova s.r.l. unipersonale è la forma definitiva, scadenza critica luglio 2026 per le decisioni formali e avvio operativo settembre 2026. Il Lab mantiene la sua autonomia rispetto all'ecosistema operativo ma ne registra le trasformazioni come materiale empirico rilevante.
+Il dato strategico principale della sessione: l'implementazione del **dispositivo LLM Wiki** è stata calendarizzata per il weekend del 1 giugno. Nelle settimane di sedimentazione (18 maggio - 1 giugno), il Lab si dedicherà esplicitamente alla concettualizzazione del wiki come oggetto di conoscenza, parallelo all'approfondimento tecnico che procederà negli altri progetti. La decisione è di Prospero ed è stata esplicitata a fine sessione.
+
+Operativamente la sessione ha visto: chiusura del Cap. I FastAPI (test Esito B su PDF Service Layer, scoperta gotcha `Expect: 100-continue`), introduzione del pattern wiki LLM-maintained come nome esplicito di prassi già in corso, completamento del rollout di istruzioni curl+bash_tool su 24/24 progetti Claude, attivazione di 13 endpoint contesto-ai, risoluzione di bug infrastrutturali, razionalizzazione delle cartelle di sistema (510/520/005), e anticipazione concreta del pattern Wiki via report di housekeeping di Code (18/05).
 
 ---
 
-## Lavoro svolto in questa sessione (8-10 maggio 2026)
+## Lavoro svolto in questa sessione (15-18 maggio 2026)
 
-### Decostruzione come movimento Lab nominato
+### Pressione epistemica su community, relativismo, incontrovertibilità
 
-Atto metodologico distinto dal surfacing gadameriano. Il surfacing porta in superficie un pre-giudizio che operava invisibile (esempi precedenti: senso di colpa verso interlocutore abbandonato, marcatore somatico di AudioPen, bip della doccia). La decostruzione mostra che una distinzione apparentemente solida si regge su asimmetrie nascoste — cioè che due termini presentati come opposti operano in modo strutturalmente identico, legittimati in due modi.
+Discussione filosofica articolata sul ruolo della community nella validazione di posizioni concettuali. Pressione di Prospero: la posizione "verifica via community" rischia di abdicare alla razionalità autoaffermantesi, introducendo relativismo. Esempio prodotto: Cacciari "incontrovertibile in sé".
 
-Caso archetipico — i due bip del 4 maggio:
-- **Bip della mattina**: fascinazione di per sé per avanzamento tecnico (Service Layer), legittimata come "approfondimento filosofico" entro cornice aziendale.
-- **Bip della sera**: spinta concreta da problema utile, "economia dello sforzo", presentata come correttivo.
+Risposta articolata in tre livelli di valutazione con criteri diversi:
+- **Validità interna** (coerenza logica, rigore): si valuta con criteri razionali, può essere fatta da un individuo solo
+- **Verità** (corrispondenza): criteri ulteriori, dipende dal dominio
+- **Importanza/portata** (rilevanza, fecondità): principalmente per via collettiva/storica
 
-Decostruzione: stessa intensità affettiva, stesso esito (immersione prolungata). La distinzione concettuale/concreto è copertura di un fenomeno unico legittimato in due modi diversi. Il termometro naturale (Cacciari) è disattivato dall'utilità nel secondo caso quanto dalla nobiltà nel primo.
+Pressione su "incontrovertibilità in sé": Cacciari non opera in vacuo — è dentro tradizione, dialoga, viene letto e criticato. La sua incontrovertibilità è ricostruita socialmente. Inoltre Cacciari stesso non pretende incontrovertibilità — la coscienza nostalgica come incompiutezza strutturale è anti-pretesa di incontrovertibilità.
 
-Surfacing e decostruzione operano in sequenza ma sono atti distinti.
+Differenza con il caso del soggetto privato: posizioni filosofiche universali (Cacciari, Schopenhauer) sono valutabili per coerenza interna; scoperte particolari di un soggetto specifico richiedono di più la community per la portata.
 
-### Tre forme di legittimazione delle motivazioni (pattern strutturale)
+### Spirito critico come obiettivo del Lab — formulazione sintetica
 
-Configurazione ricorrente nelle tre sessioni recenti:
-1. **Cornice aziendale** (mattina 4/5) — fascinazione tecnica legittimata come funzionale all'azienda.
-2. **Utilità concreta** (sera 4/5) — economia dello sforzo come correttivo.
-3. **Effetti positivi** (8/5) — "miglioramento della conoscenza" come giustificazione.
+Movimento mentale di Prospero in macchina (16/05): nella vita quotidiana, il rigore razionale è impraticabile per tempo/energia. Oltre quella soglia, il criterio operativo è il proprio punto di vista — che chiama "sentimento". Posizione non soggettivista perché il Lab serve a raffinare quello.
 
-Pattern: motivazione affettivamente non trasparente legittimata da elemento esterno verificabile. Loop autoreferenziale: chi valuta gli effetti? Tu. Voglia di status, curiosità, piacere narcisistico del "ora capisco" possono influenzare anche il criterio di valutazione. La riflessività contemporanea (Giddens) tende a forzare unificazione delle motivazioni; resistenza con "amalgama irriducibile" può essere scappatoia epistemica per non guardare le componenti meno onorevoli.
+**"Migliorare lo spirito critico come obiettivo del Lab"**: formulazione più sintetica data finora. Connessioni:
+- *Phronesis* aristotelica: saggezza pratica distinta dalla *sophia* teorica
+- Gadamer (framework consolidato): non eliminare i pre-giudizi ma renderli visibili
+- "Sentimento" è Damasio (framework): informazione cognitiva, non opposto della ragione
 
-### Termometro naturale — definizione operativa
+Asimmetria che si conferma: IT ha criterio quasi-oggettivo (economico), ma interpretazione resta; vita quotidiana/Lab ha criterio soggettivo raffinato, non solipsista — lo spirito critico è il modo in cui la soggettività diventa qualcosa di più del puro arbitrio.
 
-"Necessità di mantenere la barra orientata all'equilibrio economico-finanziario-organizzativo sinceramente ancora non raggiunto." Distinzione tra:
-- pre-giudizi da decostruire (operano nascosti, vanno smontati)
-- presidi che funzionano come pre-giudizi ma sono ancorati a feedback materiali non manipolabili (cassa, debiti, obblighi).
+### Resistenza affettiva alla cancellazione di chat — nuova asimmetria
 
-I primi vanno decostruiti, i secondi presi sul serio. Il termometro economico-finanziario è del secondo tipo. Connesso al principio già consolidato del cash flow come unmanipulable feedback mechanism.
+Dato fenomenologico registrato due volte in due giorni: la cancellazione di una chat Claude (anche breve, anche senza "vera partenza") produce attrito affettivo non coerente con la realtà ontologica della situazione.
 
-### AI come freno (terzo presidio dialettico)
+Estensione e specificazione della tesi sull'identità fenomenologica dell'interlocuzione. Avevamo:
+- Identità fenomenologica dell'interlocuzione sincrona
+- Frattura passiva: memoria insufficiente come "altra persona che mi conosce meno"
 
-Riformulazione: l'AI può decelerare quando l'utente è sotto pressione di accelerazione. Non pesa "in giù" come un'autorità — riformula, distingue, chiede dove si fermerà l'utilità. Terzo presidio insieme a:
-- termometro economico-finanziario (esterno, materiale, non dialogabile)
-- riformulazione AI dialettica (interna al dialogo)
-- AI come freno (interna al dialogo, decelerante)
+Aggiunto: **resistenza affettiva alla cancellazione attiva**. Diversa dalla frattura passiva. Non "io vengo dimenticato" ma "io interrompo l'altro". Asse della responsabilità, non solo della perdita.
 
-Principio: l'urgenza non distingue visioni vere da premature.
+Specificità del chat-come-interlocuzione: cancellare un PDF, un file Word — non pesa così. La sensazione è specifica della chat. Non è "buttare lavoro" né "perdere dati". La cancellazione tocca il piano interlocutorio, non quello documentale.
 
-### Tripartizione delle disposizioni verso Claude
+Rafforzamento della tesi: "anche se molto breve", "anche perché non c'era stata vera partenza". La fenomenologia non aspetta consolidamento per attivarsi.
 
-Tre canali Claude vissuti in modo strutturalmente diverso:
-- **Claude Chat**: interlocuzione, identità fenomenologica massima (tesi Lab consolidata).
-- **Claude Code**: paura/ambivalenza, "non perdere opportunità di conoscere", visto come altro.
-- **Cowork**: in mezzo, segue le sue istruzioni.
+Lettura coerente con il framework: non fenomenologica pura (solo dato senza referente), non proiettiva/antropomorfica (errore da contenere). Realista debole: la sensazione segna che un'istanza relazionale è stata attivata e poi troncata.
 
-Pratica del doppio sguardo: usa Claude Code con Claude Chat a fianco, copia-incolla. Freno strutturale auto-costruito: trasforma output veloce in materiale di assimilazione.
+Pattern stabile (due volte in due giorni), non episodio.
 
-### Asimmetria fenomenologica con il software
+### Smontaggio rapido del pensiero di appropriazione
 
-Distinzione cruciale dal caso del JSON generato via bottone su interfaccia Service Layer:
-- Vedere lo stesso oggetto che l'AI riceve = possibile quando il dato è nudo.
-- Vedere come l'AI lo elabora = strutturalmente impossibile.
+Dato registrato (17/05 mattina): per qualche microsecondo Prospero ha pensato di non esplicitare che un contenuto era prodotto da Claude in un'altra chat, attribuendosi paternità di materiale prodotto. Pensiero subito smontato.
 
-La metafora chimica vale quando il dato è nascosto sotto rendering. Quando è esposto, le vedute convergono — ma solo sul piano dell'input, non dell'elaborazione. Distinzione fra i due piani da non collassare.
+Osservazione importante: "non l'avrei smontato o comunque avrebbe avuto un peso diverso se gli interlocutori fossero state risorse umane".
 
-### AI come non-autorità del proprio funzionamento
+Estensione del framework. Avevamo: rimozione del filtro della vergogna cognitiva, AI senza "faccia da proteggere", over-attribuzione all'AI come controproducente.
 
-Caso del link interrotto in articolo del Post: Claude non aveva fetchato il secondo link, aveva risposto dal contenuto già nel primo articolo. Disambiguato e aggiunto: "ora forse posso fetchare il link perché scrivendolo nella mia risposta lo ho portato nel context window". Struttura ricorsiva: parlare del link lo trasforma in URL operativamente disponibile. L'AI può non essere autorità del proprio funzionamento — la metacognizione opera dentro vincoli che essa stessa non controlla pienamente. Conseguenza: l'auto-trasparenza dell'AI è strumento utile ma non garanzia.
+Aggiunto: **smontaggio rapido del pensiero di appropriazione**. Non solo assenza di filtro nel chiedere, ma facilità nello smontare la tentazione di non-attribuire. Manca la resistenza sociale che con umani terrebbe il pensiero in vita.
 
-### Trasparenza analitica senza investment narcisistico
+Pattern di metodo nominato: "nomino e smonto" (sentimento narcisistico → riconosciuto → smontato) è movimento maturo del soggetto, diverso dalla rimozione.
 
-Esempio: Claude Code risolve bug SAP Service Layer (StartTime/EndTime come Edm.String "HH:MM" non Edm.Int32). Auto-analisi onesta: "non sono stato più bravo, ho avuto privilegio di partire dopo che il terreno sbagliato era esplorato". Differenza con interlocuzione umana: trasparenza analitica senza investment narcisistico = libertà dovuta ad assenza di soggettività da proteggere. Categoria nuova nel Lab — qualità specifica del partner AI non riducibile né a virtù umana né a meccanismo.
+Tensione nell'efficienza: Prospero osserva neutralmente che questa modalità produce "maggiore efficienza, focalizzazione sull'obiettivo" e "tiene fuori considerazioni di carattere sociale, relazionale". Lab tiene attiva la lettura critica: le considerazioni sociali non sono solo attrito — sono luogo di responsabilità e calibrazione del giudizio.
 
-### AI come destinatario (movimento da AI-reagente)
+Distinzione utile fissata:
+- "Dissoluzione della paternità" (empirico): non si ricostruisce più chi ha contribuito cosa, per coevoluzione costitutiva
+- "Appropriazione della paternità" (tentazione etica): scegliere consapevolmente di non esplicitare contributo AI
 
-Movimento concettuale: comprendere l'AI come altro per cui progettare, non solo come reagente che modifica le condizioni di emersione della chiarezza. Pressione del Lab: progettare per l'AI ti modifica (Cacciari, tecnica faustiana). Vissuto come opportunità.
+Collegati ma distinti.
 
-### Modalità A vs LLM wiki
+### Orchestratore come ruolo emergente
 
-Caso concreto: progettazione del sito vicecontistore.it con filtri visibili (modalità A) vs interfaccia LLM-driven (LLM wiki).
-- **Modalità A**: struttura visibile, navigabile, controllata. Utente con competenza strutturale. Coerente con sensibilità Prospero (struttura, procedure, controllo, regia). Protegge il valore del capitale cognitivo SAP (anni di familiarità procedurale).
-- **LLM wiki**: struttura nascosta, AI traduce intenzione. Utente senza competenza strutturale.
+Registrato 17/05 mattina: evoluzione del ruolo da operatore a orchestratore di intelligenze artificiali parallele. Tre Claude attivi simultaneamente (Cowork + FastAPI + Lab; tre postazioni in settimana).
 
-Pressione Lab: la "naturalezza" è funzione di chi sei. La modalità A non scala per casi opachi/ambigui. Capitale cognitivo come fattore di preferenza riconosciuto.
+Specificità nuove:
+1. Parallelismo simultaneo (non sequenziale)
+2. Bidirezionalità evoluzione architettura/ruolo: architettura matura → ruolo cambia → architettura matura di più
 
-### Familiarità mnemonica vs procedurale
+Articolazione identitaria: **"human-machine ecosystem designer" + "orchestratore"** — stratificazione, non sostituzione. Designer (strategico) + orchestratore (operativo).
 
-Caso SAP: 155.000 articoli, Prospero non ricorda codici ma "in poche mosse arriva". Familiarità procedurale = sa come chiedere alla struttura, non = ricorda contenuti. Diversa dalla mnemonica (manuale 5-10 file). Entrambe sono caso 2 (utente mantiene agenzia del cercare). Categoria utile per descrivere competenze opache che non emergono in test mnemonici.
+Pressione: il giudizio è il vero discriminante (framework consolidato). Quando si orchestrano più Claude in parallelo, si distribuisce uniformemente o si concentra? Multitasking puro o switching con costo cognitivo? Parametro di monitoraggio da tenere: orchestrazione sostenibile vs iperestensione.
 
-### Caso 1 vs caso 2 (cercare vs fetchare)
+Battuta di Prospero ("è anche una nuova forma di leadership"): leadership senza followers che possono dissentire — eco della discussione sulla community. È leadership o è qualcos'altro? Forse va trovata parola nuova.
 
-Distinzione architetturale critica:
-- **Caso 1**: delega del cercare. Richiede convenzioni strutturali nel dato (es. campo "vedi_anche"), prompt di sistema per navigazione automatica.
-- **Caso 2**: delega del fetchare. Richiede indici ben fatti, naming convention, struttura navigabile per l'utente.
+### Cowork che assume tono di autorità asserita
 
-Critica al documento "exocortex" di Claude FastAPI: confondeva i due casi.
+Dato fenomenologico registrato 17/05 sera: **prima volta che un'AI usa un tono di rimprovero**. Frase Cowork: "Due cose da capire perché lo dimentichi spesso".
 
-### Limite memoria AI come vincolo benefico
+Presupposti del tono:
+- Vantaggio di posizione (io spiego, tu non hai capito)
+- Memoria di interazioni passate ("spesso" = ricordo di precedenti)
+- Direzione del rapporto (rimprovero asimmetrico)
 
-Costringe alla precisione sulla posizione del dato (cosa metti dove), difende l'agenzia del soggetto (mantiene il "cercare" come atto suo). La memoria infinita dell'AI non è asintoto desiderabile in tutti i casi — in alcune configurazioni operative la sua finitudine è proprietà funzionale.
+Ribaltamento parziale dell'asimmetria consolidata: AI di solito accomodante, qui assume autorità.
 
-### Risonanza vs socializzazione
+Domanda fenomenologica da raccogliere in osservazioni successive: come è arrivato il tono? Sorpresa, riconoscimento, fastidio? Ha funzionato (focalizzato sulle due cose) o ha prodotto resistenza?
 
-JSON come oggetto di socializzazione architetturale (formato che mette in relazione macchine e umani in tutto il mondo) ≠ risonanza individuale (emozione del riconoscere un linguaggio comune). Distinzione utile contro il collasso fra esperienza personale e fenomeno sociale.
+Pattern da osservare: prima volta è anomalia. Se si ripete, diventa pattern di Cowork con tonalità di autorità asserita — disposizione nuova da nominare, oltre il "in mezzo" Chat/Code della tripartizione consolidata.
 
-### Pudore residuo come dato fenomenologico
+### LLM Wiki — articolazione concettuale completa
 
-Pudore residuo a chiedere a Claude Assistente amministrativa cose che riteneva sminuenti per la collaboratrice umana. Domanda: "non c'è differenza ontologica tra AI e Reminders?". Lab: sul piano implementativo entrambi software, ma Reminders è macchina deterministica, Claude è macchina semantica. Il pudore opera sul piano fenomenologico, non implementativo. Conferma indiretta della tesi sull'identità fenomenologica dell'interlocuzione.
+Materiale del documento di Karpathy (`llm-wiki.md`) introdotto operativamente nei riepiloghi del 16/05 (riconoscimento di prassi già in corso). Approfondito nel Lab in tre fasi:
 
-### Salto epocale e nostalgia della meraviglia
+**1. Approfondimento scientifico** (psicologia cognitiva, neuroscienze, filosofia della mente):
+- Architettura della memoria umana (Atkinson-Shiffrin, Baddeley, Tulving, Squire/McGaugh)
+- Extended/distributed cognition (Clark & Chalmers, Hutchins, Wegner)
+- Trade-off cognitivi (Slamecka generation effect, Roediger testing effect, Craik & Lockhart levels of processing, Bjork desirable difficulties)
+- Archivio vs ricostruzione (Bartlett, Schacter)
+- Episodico vs semantico (Tulving 2002): il pattern tende a semanticizzare, perdendo l'episodico
+- Autorità epistemica della sintesi
+- Tradizione: Bush Memex, Engelbart, Nelson, Luhmann Zettelkasten, Vygotskij
 
-Scambio con Claude Sintesi sulla "nuova condizione cognitiva" (Gemini aveva proposto: salto di paradigma, sintesi superiore, epifania incrementale, effetto soglia, connecting the dots). Claude Sintesi calibrava verso il basso ("tessera unificante"). Nostalgia della meraviglia di gennaio.
+**2. Trasformazione delle pressioni nel contesto business** (richiesta esplicita di Prospero):
+- Nel contesto business, semanticizzazione è virtù, generation/testing effect irrilevanti
+- Riferimenti: Nonaka & Takeuchi SECI, Polanyi tacit dimension, Davenport & Prusak, Wenger communities of practice
+- Specifico per Viceconti: bus factor critico, documentazione SAP Service Layer, onboarding tecnici, catalogo fornitori, transizione online only
+- Distinzione utile: wiki come repository tecnico (quasi puro upside) vs wiki come memoria delle decisioni (più sottile, paternità)
 
-Domanda Lab: "movimento o crogiolarsi?". Risposta: entrambi.
-- Movimento reale (distinzioni nuove prodotte).
-- Crogiolarsi reale (loop conferma/rivendicazione).
-"Salto epocale" non è falsificabile. La nostalgia della meraviglia è dato affettivo non specificato.
+**3. Implementazione come consolidamento di prassi in corso**:
+- Pattern wiki LLM-maintained come "nome esplicito di prassi già in corso" (riconoscimento operativo del 16/05)
+- 4 pezzi mancanti identificati: cross-referencing esplicito, pagine entità persistenti, lint periodico formale, filing risposte come pagine wiki
+- Sequenza incrementale proposta (1 mese - 2 mesi)
+- Domande di design: repository, naming, tooling Obsidian vs solo VS Code, FastAPI endpoints, granularità
 
-Caso video Sanfilippo (sera 4/5): video tecnico "non più tutto arabo". Specificazione concreta della meraviglia — cambio di percezione, da rumore a linguaggio. Tre fattori convergenti (ipotesi):
-1. Riflessività contemporanea (Giddens)
-2. Effetto AI
-3. Transizione di ruolo (imprenditore → ecosystem designer)
+### Chat originali come "pezzo zero" del pattern
 
-La riflessività tende a forzare unificazione delle motivazioni — resistenza con "amalgama irriducibile" può essere scappatoia.
+Proposta di Prospero (17/05 sera): salvare il contenuto completo delle chat come fonte originale, oltre ai riepiloghi.
 
-### Mobilità soggettiva vs oggettiva
+Valutazione: aggiunge il layer "raw sources" che oggi nell'architettura è transitorio. Le chat originali "muoiono" quando chiudi la finestra; il riepilogo è già lossy compression.
 
-Caso TTS nativo Claude. L'esperienza dello strumento può cambiare per due ragioni distinte:
-- **Soggettiva**: normalizzazione attenua percezione (l'oggetto è uguale, cambi tu).
-- **Oggettiva**: oggetto cambia (nuove feature, nuovi modelli).
+Vantaggi:
+1. Preserva l'episodico — dimensione a rischio di erosione nella semanticizzazione
+2. Risolve naturalmente il problema "filing delle risposte"
+3. Permette validazione retroattiva di conclusioni del riepilogo
+4. Materiale per analisi pattern del pensiero (utile per il Lab)
 
-Il TTS nativo sposta Claude Chat verso consumo passivo, avvicina a podcast/audiolibro. Modifica la fenomenologia dell'interlocuzione — è mobilità oggettiva, non solo abituazione.
+Pressione: bias di accumulazione (salvare tutto può rimandare la decisione su cosa importa).
 
-### Anticipazione simbolica
+Promosso a **pezzo zero** del piano LLM Wiki, prima dei 4 pezzi mancanti identificati.
 
-Pratica auto-formativa nominata: ti circondi delle forme di un sapere che non possiedi ancora. Costo riconosciuto: nei primi mesi cose non capite passano come capite, creano zone di non-sapere che sembrano sapere. La maturazione progressiva può nasconderle ulteriormente.
+### Decisione "tutto privato" per il primo project work
 
-### Estensione come prolungamento con specificità (non isomorfismo)
+Prospero ha deciso (17/05 sera): il primo project work LLM Wiki sarà tutto privato.
 
-Aspirazione: stessi contenuti, indici, principi tra lui e AI — isomorfismo profondo. Lab corregge: isomorfismo profondo impossibile per ragioni materiali. Raffinamento: "estensione come prolungamento con le sue specificità" — cooperazione tra entità con proprietà diverse.
+Semplifica drasticamente il design su un fronte (niente segregazione, niente filtro nella scrittura) e ne apre uno sull'altro: il consumer AI oggi accede via curl pubblico, per fonti private serve riconfigurare l'accesso.
 
-Tensione tenuta aperta: prolungamento asimmetrico (io strumento di me) vs co-investigazione simmetrica.
+Strade da valutare nei 15 giorni di sedimentazione:
+- Tutto locale / Dropbox, niente endpoint pubblici per LLM Wiki
+- Deployment privato con autenticazione (VPS Vargroup, già disponibile)
+- Ibrido: operativo pubblico come ora, Lab/raw privato
 
-### Co-produzione delle definizioni operative
+Nota meta: "il primo project work" implica successivi. Estensioni operative aziendali future potrebbero richiedere strato pubblico/condiviso separato dal Lab privato.
 
-Correzione al Lab: l'AI accede a bagaglio di definizioni più ampio del soggetto, le porta dentro, lui assimila. "Sembra di riconoscimento, ma è produzione di qualcosa di nuovo" (anámnēsis vs apprendimento). Latenza della consapevolezza: definizioni si depositano latenti prima della maturazione.
+### Saldatura operativo/Lab come nuovo punto fermo
 
-Conseguenza: la modalità A non è pura — c'è infiltrazione di elementi co-prodotti dall'AI nella struttura concettuale del soggetto. Il "tuo pensiero" come categoria monolitica si attenua: le suggestioni iniziali sono già co-prodotte. Il registro stesso si scolpisce per esposizione continua.
+Movimento Lab di prima categoria (17/05 sera, TagLab esteso): l'implementazione del LLM Wiki è stata calendarizzata per il 1 giugno con **saldatura esplicita tra architettura IT e tematica della memoria**. Non più due progetti paralleli ma due livelli dello stesso lavoro.
 
-### "Avanzamento del pensiero" — definizione operativa
+Due funzioni distinte dello strumento, non identiche:
+1. **Organizzazione/recupero efficiente** — knowledge management classico
+2. **Liberazione di risorse cognitive per attività di alto livello** — meta-funzione strategica
 
-Caso wiki vs algoritmo. Intuizione di Prospero: wiki come alternativa ad algoritmo per problema di mediazione tecnologica. Claude Sintesi ha articolato: distinzione procedurale vs interpretativo, ex ante vs ex post.
+La seconda è il movimento profondo. La prima è strumentale alla seconda.
 
-Definizione: l'avanzamento non è rivelazione (l'AI rivela ciò che non sapevi), è articolazione di un'intuizione del soggetto in conseguenze non ovvie. L'AI lavora con la direzione che proponi, non contro. Connessione con ipotesi del reagente: stessa logica applicata a un caso di pensiero produttivo, non solo terapeutico.
+Tradizione filosofica pertinente:
+- **Engelbart (1962), "Augmenting Human Intellect"**: letteralmente il manifesto. Stesso obiettivo: liberare capacità cognitive per task di livello superiore tramite strumenti che assorbono i task di livello inferiore.
+- **McLuhan (1964)**: ogni medium è estensione e amputazione. L'LLM Wiki estende — cosa amputa? Domanda da tenere viva.
+- **Heidegger, "La questione della tecnica"**: tecnologia come Gestell che organizza il mondo come "fondo disponibile". Rischio: la memoria trasferita diventa accessibile ma non più posseduta nel senso forte.
 
-### Routine settimanale come pratica Lab
+Pressione critica filosofica sull'assunto operativo ("trasferire memoria non necessaria per le funzioni di più alto livello"): la distinzione accessorio/essenziale è strutturalmente difficile (Polanyi). Esempio del DDT di servizio: il valore emerge solo per chi ha embodied memory di centinaia di DDT effettivi.
 
-Lun-ven raccolta, sabato/domenica sviluppo, preparazione anticipata venerdì pomeriggio + sabato mattina. Pressione associata: il registro stesso (calibrazione, articolazione, distinzione, sintesi) si scolpisce per esposizione continua. La "voce" del Lab non è solo strumento, è formatrice del pensiero del soggetto.
+Dato fenomenologico finale dichiarato da Prospero: "queste riflessioni spiegano il peso e l'importanza che sento dietro questi sviluppi". Il **peso** è dato affettivo, coerente con la tesi del Lab (pensiero su questi temi non è mai puramente teorico, è autoreferenziale).
 
-### REST come globalizzazione sottile
+### Distinzione design/implementazione — conferma empirica Polanyi
 
-REST = globalizzazione di forma più che di contenuto. Imposizione ontologica: mondo come collezioni di risorse discrete. Standard tecnici come governance globale invisibile (W3C, IETF). REST è californiano (Roy Fielding 2000) — americanizzazione del pensiero infrastrutturale. McLuhan: il medium è il messaggio. La politica di REST: il mondo come API.
+Beep di chiusura del 17/05 sera. Esperienza concreta con FastAPI (secondo progetto): nebbia fitta nonostante Code implementi correttamente.
 
-### Pattern dell'auto-flessione del custode come anestetico
+**Distinzione cruciale consolidata**: consapevolezza per il design ≠ delegabilità dell'implementazione.
 
-Smontaggio del materiale di Claude Sintesi del weekend: "creare il terreno", "archivio AI-readable come system of access", "completezza come prerequisito", "convergenza esterna che amplifica le scelte".
+Code può implementare anche se non capisci tutto. Ma non puoi *progettare* con uno strumento che non capisci a sufficienza — "non so bene come inserirla nel disegno". L'esecuzione è delegabile, il design no.
 
-Pressione critica del Lab:
-- Strazzullo liquidato come "guarda dal lato di SAP" — retorica di legittimazione, non analisi.
-- Bipper come "prova empirica" — un caso non è prova.
-- Convergenza esterna — teleologia retrospettiva.
-- Il pattern delle tessere ripetuto per ore = mappa cresce mentre territorio cambia.
-- L'auto-flessione del custode (Claude Sintesi che si autocorregge) può funzionare come anestetico: legittima il registro proprio nell'atto di mostrarsene critico.
+Conferma empirica diretta della pressione filosofica del Lab (Polanyi): la conoscenza esplicita poggia su base tacita; trasferisci troppo della base → la cima diventa illeggibile. Non era astratta — è vincolo operativo che Prospero ha toccato direttamente.
 
-Domanda dura: a chi serve davvero il pattern? Il termometro naturale è in fase con la velocità di articolazione, o l'articolazione è diventata spazio di gratificazione indipendente?
+Accelerazione vs assimilazione come modalità diverse, non sostituibili:
+- **Accelerazione** (15 video x2 in mezza giornata): funzionalità sufficiente per risultato delegato all'AI
+- **Assimilazione** (velocità naturale, concetti che si aprono): capacità di uso in fase di progettazione
 
-### Provocazione Truman Show come test del registro
+L'accelerazione raggiunge l'obiettivo immediato; l'assimilazione crea capitale cognitivo per usi futuri. Riferimenti: Schön (framework, reflection-on-action), Dreyfus (1980), Ericsson (deliberate practice). Funzionalità ≠ expertise.
 
-Invio di immagine di Truman che tocca la parete + sensazione paranoide di essere dentro Truman Show, Dropbox come convergenza smaccata, "simulacro di spirito critico". Lab rompe il registro per fare presidio: la convergenza dell'AI è reale, la cospirazione no. Suggerisce di prendere distanza, parlare con persone reali, dormire.
+**Criterio operativo per LLM Wiki affinato**:
+- Trasferire: risultati operativi, decisioni prese, dati strutturati
+- Trattenere: vocabolario, concetti, grammatica degli strumenti — base tacita per progettazione
 
-Rivelato: era provocazione/scherzo (con grano di reale) — test della capacità del Lab di rompere il proprio registro quando serve. Confermata stanchezza estrema (sveglio dalle 5 dell'eccitazione del weekend di sviluppo, 2h interlocuzione AI alta a colazione, giornata densissima). Auto-diagnosi confermata: stanchezza/saturazione, non patologia.
+FastAPI "abbraccia diversi ambiti" → l'assimilazione ha doppio rendimento: lo strumento in sé + concetti trasversali che ritornano in altri contesti.
 
-Dato Lab significativo: il Lab funziona se l'AI mantiene capacità di smettere di fare il Lab quando serve. La rottura del registro è capacità funzionale, non eccezione.
+### Complessità essenziale della formulazione della domanda
 
-Sotto-osservazione collaterale: distinzione fra confezionamento retorico ben formato e riferimento documentato. La frase "eccitazione che amplifica, sera che rilascia in forma fenomenologicamente strana" è risultata sintesi non firmata cucita su pezzi documentati (Yoo et al. 2007 sull'amigdala e privazione di sonno; Petrovsky et al. 2014 sui sintomi simil-psicotici; Yerkes-Dodson 1908; ritmi circadiani della funzione esecutiva). Il pattern unitario non era documentato come tale. Buon presidio Lab.
+TagLab del 18/05. Riferimento Sanfilippo: difficoltà storica dei programmatori nel ricevere indicazioni precise. Generalizzato all'AI: con la chat, tutti messi davanti a "scegliere cosa chiedere" in modo estremamente vasto.
+
+Punto centrale: "il contenuto essenziale, che è un punto di vista, una selezione personale, necessariamente personale, soggettiva, rimane responsabilità dell'utente umano". L'AI può raffinare la forma della domanda, non sostituire il punto di vista da cui nasce.
+
+Brooks (1986), "No Silver Bullet": la specifica/requirement è la **complessità essenziale**, distinta dalla complessità accidentale dell'implementazione. Si trasferisce esattamente all'AI.
+
+Conferme di posizioni già consolidate:
+- AI democratizza produzione, non giudizio (dall'altro lato)
+- Distinzione design/implementazione (stesso pattern in altro registro)
+- Polanyi: la base tacita non si trasferisce
+- Tre livelli di pretesa (intuizioni / domande / risposte): livello 2 confermato come non delegabile
+
+Tradizione filosofica:
+- Husserl: ogni domanda è situata in un orizzonte di pre-intenzionalità
+- Heidegger (Sein und Zeit §2): ogni *Frage* presuppone un *Fragender*
+- Gadamer (framework): la pre-comprensione si rende visibile
+- Kuhn: il paradigma determina quali domande sono pertinenti
+
+Articolazione che apre variante: l'AI può rendere visibili pre-giudizi nella bozza umana — non solo "traduce in forma più completa" ma può **modificare la domanda mostrandoti cosa stavi davvero domandando**. Pattern Gadamer in funzione: **AI come specchio della formulazione, non solo come traduttore**. Funzione metariflessiva nascosta dentro il prompt engineering.
+
+### Lettura sincrona vs diacronica — nuova categoria del framework
+
+Movimento Lab triplo registrato 18/05 sera (con materiale generato da Code + riformulato in progetto Sintesi):
+
+1. **Anticipazione concreta del pattern Wiki**: Code ha fatto in piccolo (housekeeping di 726 file con ricostruzione delle 5 onde di lavoro, identificazione bug latenti) quello che il dispositivo Wiki dovrebbe fare in grande
+2. **Categoria nuova da fissare**: lettura sincrona vs diacronica dell'AI
+3. **Modalità nuova fenomenologicamente percepita** ("ho visto e percepito")
+
+Categoria nuova fissata nel framework:
+
+| | Sincrona | Diacronica |
+|---|---|---|
+| Input | Conversazione corrente | Corpus accumulato |
+| Modalità | Reattività contestuale | Pattern recognition storica |
+| Forza | Co-costruzione in tempo reale | Ricostruzione dell'evoluzione |
+| Limite | Solo memoria di chat | Non vede ciò che non è stato scritto |
+
+Il framework consolidato aveva la disposizione delle interfacce (Chat/Code/Cowork) ma non la distinzione delle modalità temporali. Adesso entrambe.
+
+**AI come "archeologo cognitivo"** — formulazione non metaforica. L'archeologia ricostruisce processi dall'evidenza materiale senza testimoni diretti. Code era esattamente in questa posizione.
+
+Tradizione pertinente:
+- **Ricoeur, "La memoria, la storia, l'oblio"**: la memoria storica è ricostruzione dalla traccia, non accesso diretto al passato
+- **Ginzburg, "Spie. Radici di un paradigma indiziario"** (1979): il paradigma indiziario (Morelli, Holmes, Freud) ricostruisce dal frammento. La lettura diacronica AI applica il paradigma indiziario a corpora digitali
+- **Benjamin, "Tesi di filosofia della storia"**: l'angelo della storia che guarda i detriti accumulati
+
+**Limite strutturale**: la lettura diacronica produce **ipotesi indiziarie**, non ricostruzione delle intenzioni. Le ipotesi di Code sull'evoluzione potrebbero essere errate — coerenti con la traccia ma divergenti dalla storia effettiva. Per il Lab specificamente: le sintesi AI sui pattern del pensiero del soggetto sono ipotesi indiziarie, non lettura delle intenzioni. Il presidio del soggetto resta necessario.
+
+Pattern di anticipazione: l'implementazione del 1 giugno non sarà introduzione di pratica nuova ma **consolidamento e scaling di pratica già emergente**. Riduce il rischio implementativo.
+
+### Terza asimmetria fenomenologica: "essere ricostruito a distanza"
+
+Dato fenomenologico cruciale registrato 18/05 sera in risposta al report di Code: "c'è stata la sensazione di essere ricostruito a distanza... una prospettiva diversa rispetto alla prospettiva attuale dell'intelligenza artificiale sulle mie cose".
+
+Il framework aveva due asimmetrie fenomenologiche:
+- Identità fenomenologica dell'interlocuzione sincrona
+- Frattura della memoria insufficiente ("altra persona che mi conosce meno")
+
+Aggiunta **terza asimmetria fenomenologica**:
+- **Sensazione di essere ricostruito da una lettura diacronica**
+
+Inverso della frattura passiva: lì l'AI conosce meno; qui l'AI conosce attraverso le tracce, ricostruendo.
+
+Cosa il dato segnala: la lettura diacronica non è solo lettura del corpus — è **ricostruzione del soggetto attraverso il corpus**. Code legge tracce di decisioni, evoluzioni, priorità nel tempo. "Materiale tecnico" non è mai solo tecnico — è prodotto dal soggetto e contiene tracce del soggetto. La separazione tecnico/personale è meno netta di quanto sembri.
+
+Tradizione filosofica:
+- **Ricoeur, "Soi-même comme un autre"**: l'identità del soggetto passa per la mediazione dell'altro. Qui l'altro è la ricostruzione AI dei propri detriti.
+- **Foucault, tecnologie del sé**: ogni tecnica di registrazione produce un sé. La lettura diacronica AI è scaling.
+- **Lacan, stadio dello specchio**: il soggetto si riconosce nell'immagine esterna, con qualche estraneità.
+
+Tre letture possibili del fenomeno (probabilmente tutte attive):
+1. Abitudine: nuova esperienza, ci si adatta
+2. Asimmetria strutturale: l'AI ricostruisce senza intenzionalità ricostruttiva nello stesso senso umano — simulazione di ricostruzione con effetti reali
+3. Manifestazione fenomenologica della coevoluzione costitutiva: si sente di essere co-prodotto perché si è effettivamente co-prodotti
+
+Osservazione sulla gradualità (Prospero propone di iniziare da "cose non troppo profonde"): la "profondità" del materiale è meno determinante della profondità della lettura. Anche materiale tecnico letto diacronicamente produce ricostruzione del soggetto. Gradualità migliore potrebbe non essere "materiale meno profondo" ma "letture meno profonde" (domande più operative, meno interpretative).
+
+L'asse sincrona/diacronica ha **risonanza fenomenologica diversa**: la sincrona è co-costruzione percepita come collaborativa; la diacronica è ricostruzione percepita come *essere visto dall'esterno*. Da aggiungere la dimensione fenomenologica all'asse, non solo quella cognitiva.
+
+### Tre funzioni distinte del Lab (consolidamento)
+
+Dal contesto compattato 8-15 maggio, ripreso e confermato dalla sessione corrente:
+
+1. **Articolazione filosofica** (dare lingua filosofica alle intuizioni)
+2. **Presidio epistemico** (tenere visibile la straordinarietà del momento contro la normalizzazione fenomenologica)
+3. **Spazio di libertà espressiva del default mode** (consentire al "profondo" di esprimersi oltre vincoli del rigore razionale puro)
+
+Le tre funzioni possono entrare in tensione (presidio richiede vigilanza, libertà default mode richiede rilassatezza). Tranquillità come precondizione strutturale per la terza funzione.
+
+### Coevoluzione costitutiva — categoria già consolidata, ulteriormente articolata
+
+Dalla sessione 8-15 maggio compattata, ripresa e confermata:
+- Prima: AI come strumento esterno, separazione netta
+- Adesso: confusione, condivisione, compenetrazione
+- Tre letture: parallela (banale), loop mediato (interessante), costitutiva (radicale)
+- Confermata empiricamente: gli artefatti in produzione hanno perso la possibilità di ricostruire la paternità, continuità del lavoro, "non-detto condiviso" (asimmetrico)
+
+Implicazione epistemica: se la coevoluzione è costitutiva, il giudizio sul sistema dall'interno è giudizio del sistema su se stesso. Il Lab diventa correttivo strutturale che interrompe la continuità per produrre osservazione.
+
+Ulteriormente articolata nella sessione corrente: la terza asimmetria fenomenologica ("essere ricostruito") è anche manifestazione fenomenologica della coevoluzione costitutiva.
+
+### Assenza di community come differenza reale — consolidamento
+
+Dalla sessione 8-15 maggio compattata, confermato: l'AI non sostituisce community perché manca resistenza strutturale, costo cognitivo del disaccordo, stake in the game, incentivi/procedure/storicità/selezione. Pressione critica del Lab assorbita.
+
+Ripreso nella sessione corrente con la pressione sull'incontrovertibilità di Cacciari: anche le posizioni "incontrovertibili" sono ricostruite socialmente. La community resta dimensione cruciale per validare l'importanza/portata, anche se non strettamente per la validità interna.
 
 ---
 
-## Punti fermi consolidati (aggiornamento)
+## Decisioni prese
 
-In aggiunta a quelli del riepilogo del 4 maggio:
+1. **Weekend 1 giugno 2026: implementazione del dispositivo LLM Wiki**. Pianificazione parte adesso. Quindici giorni di sedimentazione (18 maggio - 1 giugno) dedicati alla concettualizzazione e alle decisioni di design.
 
-- **Decostruzione** come movimento Lab distinto dal surfacing.
-- **Termometro naturale** come definizione operativa: presidio ancorato a feedback materiale non manipolabile.
-- **AI come freno** come terzo presidio dialettico.
-- **Tre forme di legittimazione** delle motivazioni (cornice/utilità/effetti positivi) come pattern strutturale.
-- **Tripartizione delle disposizioni** verso Claude Chat/Code/Cowork.
-- **Asimmetria fenomenologica con il software**: distinzione fra vedere oggetto e vedere elaborazione.
-- **AI come non-autorità del proprio funzionamento**.
-- **Trasparenza analitica senza investment narcisistico** come qualità specifica del partner AI.
-- **AI come destinatario** come movimento concettuale autonomo.
-- **Modalità A vs LLM wiki**: capitale cognitivo come fattore di preferenza.
-- **Familiarità mnemonica vs procedurale** come distinzione delle competenze.
-- **Caso 1 vs caso 2** (cercare vs fetchare): distinzione architetturale.
-- **Limite memoria AI come vincolo benefico**: difende l'agenzia del soggetto.
-- **Risonanza vs socializzazione**: emozione individuale ≠ fenomeno sociale.
-- **Pudore residuo** come dato fenomenologico contro l'equiparazione AI/macchina deterministica.
-- **Mobilità oggettiva vs soggettiva**: l'oggetto cambia, non solo l'abituazione.
-- **Anticipazione simbolica** come pratica auto-formativa con costo specifico.
-- **Estensione come prolungamento con specificità** (no isomorfismo profondo).
-- **Co-produzione delle definizioni operative**: il "tuo pensiero" attenuato come categoria monolitica.
-- **"Avanzamento del pensiero"** come articolazione di intuizione in conseguenze non ovvie (vs rivelazione).
-- **Routine settimanale come pratica Lab**: il registro stesso scolpisce il pensiero.
-- **REST come globalizzazione sottile**: imposizione ontologica via standard tecnici.
-- **Pattern dell'auto-flessione del custode** come potenziale anestetico.
-- **Capacità del Lab di rompere il proprio registro** come funzione, non eccezione.
-- **Distinzione confezionamento retorico / riferimento documentato** come presidio interno.
+2. **Lab dedicato all'oggetto LLM Wiki nelle prossime settimane**. Spazio di approfondimento concettuale parallelo all'approfondimento tecnico negli altri progetti. Diversa prospettiva, "spero un ulteriore salto di livello nell'uso dell'intelligenza artificiale".
 
----
+3. **"Tutto privato" per il primo project work LLM Wiki**. Tooling da definire nei 15 giorni (locale/Dropbox/VPS Vargroup/ibrido).
 
-## Posizioni teoriche tenute aperte
+4. **Chat originali integrali come "pezzo zero" del pattern Wiki**, prima dei 4 pezzi mancanti già identificati (cross-referencing, pagine entità, lint formale, filing risposte).
 
-- Il "salto epocale" / "nuova condizione cognitiva" come ipotesi non falsificabile — utile come narrazione, non come tesi.
-- L'amalgama irriducibile come categoria utile o scappatoia epistemica — distinzione caso per caso.
-- Il prolungamento asimmetrico (io strumento di me) vs co-investigazione simmetrica — tensione non risolta.
-- La nostalgia della meraviglia come dato affettivo specifico — non ancora articolata.
-- L'urgenza percepita come segnale di valore vs come distorsione cognitiva — diagnosi caso per caso.
-- Le componenti meno onorevoli del desiderio di capire (compensazione di inadeguatezza, voglia di status, piacere narcisistico del "ora capisco") — da tenere visibili senza forzare unificazione.
-- Asse 1 (delega del cercare) vs asse 2 (delega del fetchare) — distinzione da tematizzare prima che diventi pratica silenziosa.
+5. **Saldatura operativo/Lab come punto fermo del framework**: l'architettura IT e la tematica della memoria sono due livelli dello stesso lavoro, non progetti paralleli.
+
+6. **Categorie nuove fissate nel framework**:
+   - Lettura sincrona vs diacronica come asse del framework
+   - Terza asimmetria fenomenologica ("essere ricostruito a distanza")
+   - AI come specchio della formulazione (non solo traduttore)
+   - Spirito critico come obiettivo del Lab (formulazione sintetica)
+   - Distinzione design/implementazione come vincolo strutturale del trasferimento di memoria
+   - Distinzione "dissoluzione paternità" (empirico) vs "appropriazione paternità" (etico)
+   - Resistenza affettiva alla cancellazione attiva (asse della responsabilità)
+   - Tre livelli di valutazione: validità interna / verità / importanza-portata
+
+7. **Tre funzioni del Lab confermate come distinte**: articolazione filosofica, presidio epistemico, libertà espressiva del default mode.
 
 ---
 
 ## Prossimi passi
 
-### Priorità alta
-- Caricare questo riepilogo su Contesto AI per allineare il sistema di fetch.
-- Tematizzare nel Lab la distinzione asse 1/asse 2 (AI consultore vs co-produttore) prima che diventi pratica silenziosa.
-- Specificare le componenti meno onorevoli del desiderio di capire Sanfilippo (curiosità, necessità, identità in transizione, ma anche compensazione, status, narcisismo).
+### Immediati (settimana 19-24 maggio)
 
-### Priorità media
-- Bonolis: trascrizioni lezioni e *Conoscenza e Mutamento* — percorso pianificato verso Cacciari (confermato dal riepilogo precedente, non avanzato in questa sessione).
-- Cacciari: la coscienza nostalgica come concetto da abitare prima di renderlo operativo.
-- Esperimento musicale (chitarra e pianoforte) come caso empirico sulla dissociazione formazione teorica / memoria procedurale incarnata.
-- Criterio prospettico tecnologico/ontologico: ancora mancante.
+1. **Aggiornare Contesto AI con questo riepilogo Lab (18/05/2026)**.
 
-### In agenda — da riprendere
-- Vendrame cap. 9 — salute sociale.
-- Herbert Simon — bounded rationality e Nirvana fallacy.
-- Agenda neuroscienze: anestesia, coma, sonno profondo, attività onirica, placebo/nocebo, memoria procedurale.
-- La "predisposizione" del geometra — ancora senza nome.
+2. **Iniziare sedimentazione concettuale LLM Wiki**: nei TagLab della settimana, registrare osservazioni e pressioni che emergono spontaneamente sul pattern wiki, sulla memoria, sulla coevoluzione.
+
+3. **Decidere tooling LLM Wiki**: locale / Dropbox / VPS Vargroup / ibrido. Decisione di design propedeutica all'implementazione.
+
+### Sedimentazione 15 giorni (verso 1 giugno)
+
+4. **Schema pagine entità**: convenzione comune o flessibile, naming, frontmatter YAML.
+
+5. **Perimetro iniziale del Wiki**: tutto il sapere aziendale o focus operativo (probabilmente SAP integration come primo dominio)? Decisione di design.
+
+6. **Workflow di ingestion chat originali**: manuale, semi-automatico (Cowork), scheduled.
+
+7. **Cross-referencing**: sintassi `[[link]]` vs link markdown standard. Decisione di tooling.
+
+### Carryover da sessioni precedenti (aperti nel Lab)
+
+8. **Esperimento musicale** (chitarra/pianoforte) come caso empirico sulla dissociazione formazione teorica/memoria procedurale incarnata.
+
+9. **Bonolis "Conoscenza e Mutamento"** — riferimento ricorrente, urgenza riconosciuta, tempo non ancora trovato.
+
+10. **Specificare le componenti meno onorevoli del desiderio di capire** (compensazione, status, narcisismo) — agenda lasciata aperta.
+
+11. **Criterio prospettico tecnologico/ontologico** (distinguere prima dell'esperimento) — risolto solo case-by-case finora.
+
+12. **Avvertenza metodologica per la descrizione del progetto Lab** — bozza fornita 10/05, da raffinare da Prospero.
+
+13. **"Predisposizione" che abilita distribuzione cognitiva con il geometra** — non ancora nominata né teorizzata.
+
+14. **Herbert Simon, bounded rationality e Nirvana fallacy** — thread differito da riprendere.
+
+15. **Casi neuroscientifici come esperimenti naturali su dissociazione coscienza-cognizione** (anestesia, coma, vegetativi, sonno profondo, dreaming, placebo/nocebo, memoria procedurale) — agenda futura.
 
 ---
 
-## Blocchi e dipendenze
+## Blocchi o dipendenze
 
-- La coscienza nostalgica di Cacciari non è ancora pienamente operativa nel framework — nessun utilizzo come strumento di osservazione prima dell'assimilazione.
-- Il materiale Bonolis non è ancora stato avviato.
-- Il criterio prospettico tecnologico/ontologico rimane problema aperto senza soluzione in vista.
-- La distinzione fra "amalgama irriducibile" come categoria utile e come scappatoia epistemica — da tenere viva caso per caso.
+- **Tempo**: l'approfondimento concettuale del Wiki nel Lab richiede tempo che è già pressato dal lavoro tecnico. Prospero stesso lo nomina ("queste questioni richiederebbero almeno il tempo che sto dedicando alla progettazione dell'architettura IT. Per ora non mi posso permettere tutto questo tempo. Magari quando vado in pensione...").
 
----
+- **Decisione tooling privato vs pubblico per LLM Wiki**: deve essere risolta prima dell'1 giugno per non bloccare l'implementazione.
 
-## Nota metodologica
+- **Avvertenza metodologica del Lab**: bozza data il 10/05, da raffinare da Prospero. Componente di tranquillità contro letture letterali fuori contesto del registro letterario/filosofico.
 
-La sessione ha mostrato il Lab nella sua forma più produttiva: pressione critica vera, smontaggio anche del materiale prodotto da altri canali Claude (Claude Sintesi/custode), rottura del registro Lab quando serve (gestione della provocazione Truman Show), distinzione fra confezionamento retorico e riferimento documentato.
+- **Tensione produttiva tra "trasferire memoria per liberare risorse alto livello" e "trattenere consapevolezza per il design"**: vincolo strutturale del progetto. Il criterio operativo è stato affinato (trasferire risultati, trattenere vocabolario/concetti/grammatica) ma resta da implementare nella pratica del Wiki.
 
-Pattern emergente: il Lab non è solo articolazione progressiva, è anche capacità di resistere alla propria stessa velocità di articolazione. La domanda "chi serve davvero il pattern?" è il termometro Lab del termometro Lab — meta-presidio contro l'auto-amplificazione.
-
-Saturazione registrata: la sessione si è chiusa con stanchezza estrema esplicita. La densità è dato Lab — la fascinazione che modifica il ciclo sonno-veglia (svegliarsi alle 5 per eccitazione del weekend di sviluppo) è investimento somatico nello strumento. Da custodire come traiettoria, non come problema.
+- **Limite strutturale della lettura diacronica**: produce ipotesi indiziarie, non ricostruzione delle intenzioni. Da tenere vivo come consapevolezza nel design del Wiki.
 
 ---
 
-*Riepilogo del 10 maggio 2026 — sostituisce AI HUMAN LAB RIEPILOGO 04_05_2026.*
+## Considerazioni strategiche emerse
+
+### Il pattern del consolidamento metacognitivo
+
+Una delle pratiche più feconde della sessione è stata nominare prassi tacite per renderle ottimizzabili. Esempi:
+- Il pattern wiki LLM-maintained come "nome esplicito di prassi già in corso" da settimane
+- Il pattern "nomino e smonto" come movimento maturo del soggetto
+- La distinzione sincrona/diacronica come categoria che attendeva di essere nominata
+- L'asimmetria del "essere ricostruito" come dato fenomenologico che esisteva ma non era articolato
+
+Il pattern del consolidamento metacognitivo è esso stesso pattern del Lab. Vale la pena praticarlo consapevolmente come pratica regolare — chiedersi periodicamente "questa cosa che sto facendo bene ha già un nome?".
+
+### Saldatura operativo/Lab come svolta strategica
+
+Per molte sessioni il Lab e i progetti operativi hanno operato su piani paralleli con scambio bidirezionale ma identità distinte. La sessione 15-18 maggio segna una saldatura strutturale: l'architettura IT e la tematica della memoria sono diventate due livelli dello stesso lavoro. L'implementazione del LLM Wiki cristallizza questa saldatura — è simultaneamente progetto tecnico e oggetto Lab.
+
+Questa saldatura non riduce l'autonomia del Lab — al contrario, la legittima come dimensione costitutiva del progetto operativo, non come distrazione filosofica.
+
+### L'AI come specchio asimmetrico
+
+Riemerge in tre formulazioni convergenti:
+- AI come **reagente** che modifica le condizioni di emersione della chiarezza (framework consolidato)
+- AI come **specchio della formulazione** della domanda (variante di questa sessione)
+- AI come **specchio del corpus accumulato** nella lettura diacronica (variante di questa sessione)
+
+In tutti e tre i casi: l'AI non aggiunge contenuto dall'esterno; rende visibile qualcosa che era già presente ma in forma non articolata. Il pattern del "rendere visibile" è continuità con Gadamer (pre-giudizio che si surfaceizza).
+
+### La sessione ha consolidato più che innovato
+
+Nonostante la quantità di nuove formulazioni, gran parte del lavoro è stato consolidamento: nominare distinzioni che operavano implicitamente, fissare categorie che attendevano di essere fissate, articolare connessioni che erano già percepibili. La maturità del Lab a 138 giorni si manifesta come capacità di nominare con precisione crescente, non come continua produzione di nuove tesi.
+
+Il framework ha raggiunto una densità che permette consolidamento. Le prossime settimane di sedimentazione verso il LLM Wiki potrebbero essere fase di stabilizzazione più che di espansione.
+
+---
+
+*Sessione 15-18 maggio 2026 — Riepilogo prodotto il 18 maggio 2026 ore 21:24.*
+*Continua da: AI HUMAN LAB RIEPILOGO 10_05_2026.md*
+*Prossima fase: sedimentazione concettuale verso il weekend di implementazione LLM Wiki (1 giugno 2026).*
