@@ -1,7 +1,7 @@
 {
   "meta": {
     "repo": "viceconti-hub/contesto-ai",
-    "ultimo_aggiornamento": "2026-05-17T18:03:45Z",
+    "ultimo_aggiornamento": "2026-05-18T20:01:03Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw.",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/"
   },
@@ -22,7 +22,7 @@
       "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/AI_HUMAN_LAB_RIEPILOGO.md",
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/AI_HUMAN_LAB_RIEPILOGO.md",
       "tipo": "RIEPILOGO",
-      "ultimo_aggiornamento": "2026-05-17"
+      "ultimo_aggiornamento": "2026-05-18"
     },
     {
       "nome": "AUDIT INFRASTRUTTURA",
