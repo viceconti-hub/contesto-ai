@@ -1,7 +1,7 @@
 {
   "meta": {
     "repo": "viceconti-hub/contesto-ai",
-    "ultimo_aggiornamento": "2026-06-05T19:29:13Z",
+    "ultimo_aggiornamento": "2026-06-05T19:30:32Z",
     "istruzioni": "Fetcha i file raw_url per leggere il contenuto. Usa github_url per consumer (es. Gemini) che non leggono raw.",
     "base_raw": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/"
   },
@@ -169,6 +169,14 @@
       "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/README_push_github.md",
       "tipo": "DOC",
       "ultimo_aggiornamento": "2026-05-09"
+    },
+    {
+      "nome": "REPORT_SINCRONIZZAZIONE_05_06_2026",
+      "file": "REPORT_SINCRONIZZAZIONE_05_06_2026.md",
+      "raw_url": "https://raw.githubusercontent.com/viceconti-hub/contesto-ai/main/REPORT_SINCRONIZZAZIONE_05_06_2026.md",
+      "github_url": "https://github.com/viceconti-hub/contesto-ai/blob/main/REPORT_SINCRONIZZAZIONE_05_06_2026.md",
+      "tipo": "DOC",
+      "ultimo_aggiornamento": "2026-06-05"
     }
   ]
 }
